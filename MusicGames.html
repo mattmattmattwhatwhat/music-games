@@ -111,7 +111,17 @@
 			{"rank": 100, "artist": "Andy Gibb", "title": "Time Is Time"}
 		];
 
-		console.log("Hello!");
+		Song = function(artist, trackName) {
+			this.artist = artist;
+			this.trackName = trackName;
+		};
+
+		var songs = [];
+
+		for (var i = 0; i < chartFrom1981.length; i++) {
+			songs.push(new Song(chartFrom1981[i].artist, chartFrom1981[i].title));
+		}
+
 	</script>
 </body>
 
