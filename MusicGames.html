@@ -114,12 +114,19 @@
 		Song = function(artist, trackName) {
 			this.artist = artist;
 			this.trackName = trackName;
+
+			this.year = null;
+			this.yearRank = null;
+
+			this.spotifyData = null;
 		};
 
 		var songs = [];
 
 		for (var i = 0; i < chartFrom1981.length; i++) {
 			songs.push(new Song(chartFrom1981[i].artist, chartFrom1981[i].title));
+			songs[songs.length - 1].year = 1981;
+			songs[songs.length - 1].yearRank = chartFrom1981[i].rank;
 		}
 
 	</script>
