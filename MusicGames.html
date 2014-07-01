@@ -8,6 +8,8 @@
 	<div id="pageContainer"/>
 	<script type="text/javascript">
 
+		// Data -------------------
+
 		var chartFrom1981 = [
 			{"rank": 1, "artist": "Kim Carnes", "title": "Bette Davis Eyes"},
 			{"rank": 2, "artist": "Diana Ross & Lionel Richie", "title": "Endless Love"},
@@ -111,6 +113,8 @@
 			{"rank": 100, "artist": "Andy Gibb", "title": "Time Is Time"}
 		];
 
+		// Classes -------------------
+
 		Song = function(artist, trackName) {
 			this.artist = artist;
 			this.trackName = trackName;
@@ -120,6 +124,20 @@
 
 			this.spotifyData = null;
 		};
+
+		// Functions -------------------
+
+		function replaceSpaces(string) {
+			if (string.indexOf(' ') > -1) {
+				return replaceSpaces(string.replace(' ', '%20'));
+			}
+
+			else {
+				return string;
+			}
+		}
+
+		// Testing -------------------
 
 		var songs = [];
 
