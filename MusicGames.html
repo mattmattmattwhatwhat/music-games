@@ -248,39 +248,59 @@
 
 		// UI Handling
 
-		function initializeInterface() {
-			var startButton = document.getElementById("startButton");
-			startButton.addEventListener("click", start, false);
-		}
-
-		function start(e) {
-			console.log('pressed start', e);
-		}
+		UserInterface = function() {
+			this.removeWelcome = function() {
+				var welcomeContainer = document.getElementById("welcomeContainer");
+				welcomeContainer.remove();
+			};
+		};
 
 		// Game Handling
 
-		function createSongList(songData) {
-			var songs = [];
+		Game = function() {
+			this.songs = null;
 
-			for (var i = 0; i < songData.length; i++) {
-				songs.push(new Song(songData[i].artist, songData[i].title));
-				songs[songs.length - 1].year = 1981;
-				songs[songs.length - 1].yearRank = songData[i].rank;
-			}
+			this.initialize = function() {
+				this.setSongList(chartFrom1981);
 
-			return songs;
-		}
+				this.ui = new UserInterface();
 
-		function initialize() {
-			var songs = createSongList(chartFrom1981);
-			return songs;
-		}
+				//for (var songIndex = 0; songIndex < songs.length; songIndex++) {
+				//	songs[songIndex].setSpotifyData();
+				//}
+
+				this.addEventListeners("startButton", "click");
+			};
+
+			this.setSongList = function(songData) {
+				this.songs = [];
+
+				for (var i = 0; i < songData.length; i++) {
+					this.songs.push(new Song(songData[i].artist, songData[i].title));
+
+					this.songs[this.songs.length - 1].year = 1981;
+					this.songs[this.songs.length - 1].yearRank = songData[i].rank;
+
+					if (songData.length < 10) {
+						this.songs[this.songs.length - 1].setSpotifyData();
+					}
+				}
+			};
+
+			this.addEventListeners = function(elementId, listenerType) {
+				var element = document.getElementById(elementId);
+				element.addEventListener(listenerType, this, false);
+			};
+
+			this.handleEvent = function(e) {
+				console.log(e);
+			};
+		};
 
 		// Testing -------------------
 
-
-		var songs = initialize();
-		initializeInterface();
+		var game = new Game();
+		game.initialize();
 
 		var pageContainer = document.getElementById("pageContainer");
 
