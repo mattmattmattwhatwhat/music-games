@@ -136,7 +136,9 @@
 
 				// request spotify search results
 				var searchUrl = getSpotifySearchUrl(this.artist, this.trackName, 'track');
-				console.log(searchUrl);
+				var searchResults = getSpotifySearchResults(searchUrl + "&limit=5");
+
+				console.log(searchResults);
 				// match artist/track to results
 				// set this.spotifyData to track result
 			};
@@ -168,6 +170,15 @@
 			var searchUrl = baseSearchUrl + constructed_query;
 
 			return searchUrl;
+		}
+
+		function getSpotifySearchResults(constructedUrl) {
+			var searchRequest = new XMLHttpRequest();
+
+			searchRequest.open("GET", constructedUrl, false);
+			searchRequest.send(null);
+
+			return JSON.parse(searchRequest.responseText);
 		}
 
 		// Testing -------------------
