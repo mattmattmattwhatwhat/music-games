@@ -136,7 +136,8 @@
 
 				// request spotify search results
 				var searchUrl = getSpotifySearchUrl(this.artist, this.trackName, 'track');
-				var searchResults = getSpotifySearchResults(searchUrl + "&limit=5");
+				var searchResults = getSpotifySearchResults(searchUrl);// + "&limit=5");
+				//console.log(searchResults);
 
 				// match artist/track to results
 				var tracks = searchResults.tracks.items;
@@ -144,6 +145,7 @@
 
 				// set this.spotifyData to track result
 				if (matchedSong != null) {
+					console.log('Successfully matched:', this.artist, this.trackName);
 					this.spotifyData = matchedSong;
 				}
 
@@ -191,11 +193,15 @@
 		}
 
 		function getSongMatchFromResults(artist, trackName, spotifyTracks) {
+			var bestTrackResult = null;
+
 			for (var i = 0; i < spotifyTracks.length; i++) {
 				var trackNameResult = spotifyTracks[i].name;
 				var artistsResult = spotifyTracks[i].artists;
 
 				if (trackName.toLowerCase() == trackNameResult.toLowerCase()) {
+					bestTrackResult = spotifyTracks[i];
+
 					for (var j = 0; j < artistsResult.length; j++) {
 						var artistName = artistsResult[j].name;
 
@@ -206,7 +212,9 @@
 				}
 			}
 
-			return null;
+			console.log('Returning best result for:', artist, trackName, bestTrackResult);
+
+			return bestTrackResult;
 		}
 
 		// Testing -------------------
@@ -219,7 +227,9 @@
 			songs[songs.length - 1].yearRank = chartFrom1981[i].rank;
 		}
 
-		songs[0].setSpotifyData()
+		for (var songIndex = 0; songIndex < 15; songIndex++) {
+			songs[songIndex].setSpotifyData();
+		}
 
 	</script>
 </body>
