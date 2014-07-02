@@ -227,8 +227,20 @@
 			songs[songs.length - 1].yearRank = chartFrom1981[i].rank;
 		}
 
-		for (var songIndex = 0; songIndex < 15; songIndex++) {
+		var pageContainer = document.getElementById("pageContainer");
+
+		for (var songIndex = 0; songIndex < 30; songIndex++) {
 			songs[songIndex].setSpotifyData();
+
+			if (songs[songIndex].spotifyData != null) {
+				var newSongContainer = document.createElement("div");
+				pageContainer.appendChild(newSongContainer);
+
+				var albumArt = document.createElement("img");
+				albumArt.src = songs[songIndex].spotifyData.album.images[0].url;
+
+				newSongContainer.appendChild(albumArt);
+			}
 		}
 
 	</script>
