@@ -138,9 +138,18 @@
 				var searchUrl = getSpotifySearchUrl(this.artist, this.trackName, 'track');
 				var searchResults = getSpotifySearchResults(searchUrl + "&limit=5");
 
-				console.log(searchResults);
 				// match artist/track to results
+				var tracks = searchResults.tracks.items;
+				var matchedSong = getSongMatchFromResults(this.artist, this.trackName, tracks);
+
 				// set this.spotifyData to track result
+				if (matchedSong != null) {
+					this.spotifyData = matchedSong;
+				}
+
+				else {
+					console.log("Couldn't get spotify data for:", this.artist, this.trackName);
+				}
 			};
 		};
 
@@ -179,6 +188,25 @@
 			searchRequest.send(null);
 
 			return JSON.parse(searchRequest.responseText);
+		}
+
+		function getSongMatchFromResults(artist, trackName, spotifyTracks) {
+			for (var i = 0; i < spotifyTracks.length; i++) {
+				var trackNameResult = spotifyTracks[i].name;
+				var artistsResult = spotifyTracks[i].artists;
+
+				if (trackName.toLowerCase() == trackNameResult.toLowerCase()) {
+					for (var j = 0; j < artistsResult.length; j++) {
+						var artistName = artistsResult[j].name;
+
+						if (artist.toLowerCase() == artistName.toLowerCase()) {
+							return spotifyTracks[i];
+						}
+					}
+				}
+			}
+
+			return null;
 		}
 
 		// Testing -------------------
