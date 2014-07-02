@@ -2,13 +2,20 @@
 <html>
 
 <head>
+	<style type="text/css">
+		#startButton {
+			color: #0000FF;
+		}
+
+	</style>
 </head>
 
 <body>
 	<div id="pageContainer">
-		<!--div id="welcomeContainer">
+		<div id="welcomeContainer">
 			<h1>Hi</h1>
-		</div-->
+			<button id="startButton">Get started!</button>
+		</div>
 	</div>
 
 	<script type="text/javascript">
@@ -239,18 +246,40 @@
 			return bestTrackResult;
 		}
 
+		// UI Handling
+
+		function initializeInterface() {
+			var startButton = document.getElementById("startButton");
+			startButton.addEventListener("click", start, false);
+		}
+
+		function start(e) {
+			console.log('pressed start', e);
+		}
+
+		// Game Handling
+
+		function initialize() {
+			var songs = [];
+
+			for (var i = 0; i < chartFrom1981.length; i++) {
+				songs.push(new Song(chartFrom1981[i].artist, chartFrom1981[i].title));
+				songs[songs.length - 1].year = 1981;
+				songs[songs.length - 1].yearRank = chartFrom1981[i].rank;
+			}
+
+			return songs;
+		}
+
 		// Testing -------------------
 
-		var songs = [];
 
-		for (var i = 0; i < chartFrom1981.length; i++) {
-			songs.push(new Song(chartFrom1981[i].artist, chartFrom1981[i].title));
-			songs[songs.length - 1].year = 1981;
-			songs[songs.length - 1].yearRank = chartFrom1981[i].rank;
-		}
+		var songs = initialize();
+		initializeInterface();
 
 		var pageContainer = document.getElementById("pageContainer");
 
+		/*
 		for (var songIndex = 0; songIndex < 15; songIndex++) {
 			songs[songIndex].setSpotifyData();
 
@@ -263,7 +292,7 @@
 
 				newSongContainer.appendChild(albumArt);
 			}
-		}
+		}*/
 
 	</script>
 </body>
