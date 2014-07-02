@@ -130,6 +130,11 @@
 			this.spotifyData = null;
 
 			this.setSpotifyData = function() {
+				// attempts to set this.spotifyData to a spotify track object by
+				// searching spotify for the track name and checking the results
+				// for a case-insensitive exact track name match (prefers an
+				// exact artist match)
+
 				if (this.spotifyData != null) {
 					return;
 				}
@@ -158,6 +163,9 @@
 		// Functions -------------------
 
 		function replaceSpaces(string) {
+			// returns the supplied string with all spaces replaced by %20
+			// so it can be used in the spotify search call
+
 			if (string.indexOf(' ') > -1) {
 				return replaceSpaces(string.replace(' ', '%20'));
 			}
@@ -168,6 +176,12 @@
 		}
 
 		function getSpotifySearchUrl(artist, trackName, searchType) {
+			// creates an appropriate url to call the search api.
+			//
+			// a quick test showed searching for both artist and track
+			// made it harder to match the specific song so this makes
+			// a track name search
+
 			var baseSearchUrl = "https://api.spotify.com/v1/search?q=";
 
 			var searchableArtist = replaceSpaces(artist);
@@ -177,13 +191,17 @@
 			var trackQuery = "track:" + searchableTrack;
 			var typeQuery = "type=" + searchType;
 
-			var constructed_query = artistQuery + "&" + trackQuery + "&" + typeQuery;
+			//var constructed_query = artistQuery + "&" + trackQuery + "&" + typeQuery;
+			var constructed_query = trackQuery + "&" + typeQuery;
 			var searchUrl = baseSearchUrl + constructed_query;
 
 			return searchUrl;
 		}
 
 		function getSpotifySearchResults(constructedUrl) {
+			// call the spotify search api with the supplied url
+			// returns a JSON formatted object of the search results
+
 			var searchRequest = new XMLHttpRequest();
 
 			searchRequest.open("GET", constructedUrl, false);
@@ -193,6 +211,10 @@
 		}
 
 		function getSongMatchFromResults(artist, trackName, spotifyTracks) {
+			// compares an artist and track to an array of spotify tracks taken
+			// from the spotify search results, returns an exact track and artist
+			// match immediately, otherwise returns a track match, or null
+
 			var bestTrackResult = null;
 
 			for (var i = 0; i < spotifyTracks.length; i++) {
@@ -229,7 +251,7 @@
 
 		var pageContainer = document.getElementById("pageContainer");
 
-		for (var songIndex = 0; songIndex < 30; songIndex++) {
+		for (var songIndex = 0; songIndex < 15; songIndex++) {
 			songs[songIndex].setSpotifyData();
 
 			if (songs[songIndex].spotifyData != null) {
