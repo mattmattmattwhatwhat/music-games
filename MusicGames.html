@@ -310,15 +310,23 @@
 				console.log(randomSongs);
 			};
 
-			this.selectRandomSongs = function(songsToSelect) {
+			this.selectRandomSongs = function(songCount) {
+				// attempts to remove songCount songs from this.songs and return
+				// them as a new array. returns null if there are enough songs
+				// available in this.songs
+
 				var randomSongs = [];
 
-				for (var i = 0; i < songsToSelect; i++) {
-					var songsNeeded = songsToSelect - i;
+				for (var i = 0; i < songCount; i++) {
+					var songsNeeded = songCount - i;
 
 					if (songsNeeded > this.songs.length) {
+						for (var j = 0; j < randomSongs.length; j++) {
+							this.songs.push(randomSongs[j]);
+						}
+
 						alert("Couldn't find enough songs to play");
-						break;
+						return null;
 					}
 
 					var randIndex = Math.floor(Math.random() * this.songs.length);
@@ -332,7 +340,7 @@
 						}
 
 						else {
-							songsToSelect++;
+							songCount++;
 						}
 					}
 
