@@ -7,6 +7,11 @@
 			color: #0000FF;
 		}
 
+		#gameChoices .albumArt {
+			background-color: #0000FF;
+			width: 310px;
+		}
+
 	</style>
 </head>
 
@@ -19,15 +24,18 @@
 
 		<div id="gameContainer">
 			<button id="playSong">Play!</button>
-			<div class="albumArt" id="choice1"/>
-			<div class="albumArt" id="choice2"/>
-			<div class="albumArt" id="choice3"/>
-			<div class="albumArt" id="choice4"/>
-			<div class="albumArt" id="choice5"/>
-			<div class="albumArt" id="choice6"/>
-			<div class="albumArt" id="choice7"/>
-			<div class="albumArt" id="choice8"/>
-			<div class="albumArt" id="choice9"/>
+
+			<div id="gameChoices">
+				<div class="albumArt" id="choice1"/>
+				<div class="albumArt" id="choice2"/>
+				<div class="albumArt" id="choice3"/>
+				<div class="albumArt" id="choice4"/>
+				<div class="albumArt" id="choice5"/>
+				<div class="albumArt" id="choice6"/>
+				<div class="albumArt" id="choice7"/>
+				<div class="albumArt" id="choice8"/>
+				<div class="albumArt" id="choice9"/>
+			</div>
 		</div>
 	</div>
 
@@ -325,11 +333,6 @@
 
 		Game = function() {
 			this.gamedata = new GameData();
-			this.songs = null;
-
-			this.songChoices = null;
-			this.songToGuessPreviewLink = null;
-			this.audioPreview = null;
 
 			this.initialize = function() {
 				this.setSongList(chartFrom1981);
@@ -401,9 +404,11 @@
 			};
 
 			this.selectRandomSongs = function(songCount) {
-				// attempts to remove songCount songs from this.songs and return
-				// them as a new array. returns null if there are enough songs
-				// available in this.songs
+				// attempts to remove n songs from this.gamedata.songs and returns
+				// them as a new array with song.spotifyData info added
+				// returns null if there aren't enough available songs to choose from
+				// n = songCount
+				// ** fix this to not alter this.gamedata.songs **
 
 				var randomSongs = [];
 
