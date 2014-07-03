@@ -174,9 +174,9 @@
 					this.spotifyData = matchedSong;
 				}
 
-				else {
+				//else {
 					//console.log("Couldn't get spotify data for:", this.artist, this.trackName);
-				}
+				//}
 			};
 		};
 
@@ -304,7 +304,7 @@
 					var mediumArt = albumImages[1].url;
 					var smallArt = albumImages[2].url;
 
-					var albumArt = this.createAlbumArtImage(smallArt);
+					var albumArt = this.createAlbumArtImage(mediumArt);
 					choiceContainer.appendChild(albumArt);
 				}
 			};
@@ -447,23 +447,8 @@
 
 		var game = new Game();
 		game.initialize();
+		game.beginGame();
 
-		var pageContainer = document.getElementById("pageContainer");
-
-		/*
-		for (var songIndex = 0; songIndex < 15; songIndex++) {
-			songs[songIndex].setSpotifyData();
-
-			if (songs[songIndex].spotifyData != null) {
-				var newSongContainer = document.createElement("div");
-				pageContainer.appendChild(newSongContainer);
-
-				var albumArt = document.createElement("img");
-				albumArt.src = songs[songIndex].spotifyData.album.images[0].url;
-
-				newSongContainer.appendChild(albumArt);
-			}
-		}*/
 
 	</script>
 </body>
