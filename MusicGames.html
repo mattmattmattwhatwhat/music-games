@@ -364,12 +364,6 @@
 
 				this.addEventListeners(startButton, "click");
 				this.addEventListeners(playButton, "click");
-
-				//var gameChoices = document.getElementsByClassName("gameChoice");
-
-				//for (var i = 0; i < gameChoices.length; i++) {
-				//	this.addEventListeners(gameChoices[i].id, "click");
-				//}
 			};
 
 			this.setSongList = function(songData) {
@@ -390,7 +384,6 @@
 			};
 
 			this.addEventListeners = function(element, listenerType) {
-				//var element = document.getElementById(elementId);
 				element.addEventListener(listenerType, this, false);
 			};
 
@@ -409,7 +402,8 @@
 				}
 
 				else if (eventElement.className == 'albumArt') {
-					console.log('clicked game choice', e);
+					console.log(this.checkForSongMatch(e.toElement));
+					//console.log('clicked game choice', e.toElement.parentElement);
 				}
 			};
 
@@ -490,6 +484,41 @@
 				}
 
 				return randomSongs;
+			};
+
+			this.checkForSongMatch = function(clickedElement) {
+				// clickedElement should be the album art image element
+				// this checks for a match by determining the correct song from
+				// the preview url, then compares the available album art urls
+				// to the clicked art url. this makes it a little harder to cheat
+				// than having the correct song stored in this.gamedata
+
+				var correctSong = null;
+
+				for (var i = 0; i < this.gamedata.songChoices.length; i++) {
+					var previewUrl = this.gamedata.songChoices[i].spotifyData.preview_url;
+
+					if (previewUrl == this.gamedata.audioPreview.src) {
+						correctSong = this.gamedata.songChoices[i];
+
+						break;
+					}
+				}
+
+				if (correctSong != null) {
+					var correctSongArt = correctSong.spotifyData.album.images;
+
+					for (var i = 0; i < correctSongArt.length; i++) {
+						if (correctSongArt[i].url == clickedElement.src) {
+							return true;
+						}
+					}
+
+					return false;
+				}
+
+				console.log("Couldn't determine song match");
+				return null;
 			};
 		};
 
