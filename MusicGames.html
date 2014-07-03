@@ -267,7 +267,9 @@
 				var artistsResult = spotifyTracks[i].artists;
 
 				if (trackName.toLowerCase() == trackNameResult.toLowerCase()) {
-					bestTrackResult = spotifyTracks[i];
+					if (bestTrackResult === null) {
+						bestTrackResult = spotifyTracks[i];
+					}
 
 					for (var j = 0; j < artistsResult.length; j++) {
 						var artistName = artistsResult[j].name;
@@ -280,7 +282,6 @@
 			}
 
 			//console.log('Returning best result for:', artist, trackName, bestTrackResult);
-
 			return bestTrackResult;
 		}
 
@@ -324,8 +325,6 @@
 					var choiceContainer = choiceElements[i];
 					var albumImages = songChoices[i].spotifyData.album.images;
 
-					//console.log(albumImages);
-
 					var largeArt = albumImages[0].url;
 					var mediumArt = albumImages[1].url;
 					var smallArt = albumImages[2].url;
@@ -349,14 +348,12 @@
 
 				if (song.spotifyData.artists.length == 1) {
 					var artistString = song.spotifyData.artists[0].name;
-					//songArtistElement.textContent = song.spotifyData.artists[0].name;
 				}
 
 				else if (song.spotifyData.artists.length == 2) {
-					var artistA = song.spotifyData.artists[0].name;
-					var artistB = song.spotifyData.artists[1].name;
-
-					var artistString = artistA + " with " + artistB;
+					var artistString = song.spotifyData.artists[0].name +
+										" with " +
+										song.spotifyData.artists[1].name;
 				}
 
 				else {
@@ -373,8 +370,6 @@
 				choiceElement.appendChild(songTitleElement);
 				choiceElement.appendChild(songArtistElement);
 			};
-
-
 		};
 
 		// Game Handling
