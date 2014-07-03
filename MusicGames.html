@@ -332,7 +332,46 @@
 
 					var albumArt = this.createAlbumArtImage(smallArt);
 					choiceContainer.appendChild(albumArt);
+
+					this.addSongInformationToChoice(songChoices[i], choiceContainer);
 				}
+			};
+
+			this.addSongInformationToChoice = function(song, choiceElement) {
+				//console.log(song.spotifyData)
+				var songTitleElement = document.createElement("p");
+				var songArtistElement = document.createElement("p");
+
+				songTitleElement.className = "songTitles";
+				songArtistElement.className = "songArtists";
+
+				songTitleElement.textContent = song.spotifyData.name;
+
+				if (song.spotifyData.artists.length == 1) {
+					var artistString = song.spotifyData.artists[0].name;
+					//songArtistElement.textContent = song.spotifyData.artists[0].name;
+				}
+
+				else if (song.spotifyData.artists.length == 2) {
+					var artistA = song.spotifyData.artists[0].name;
+					var artistB = song.spotifyData.artists[1].name;
+
+					var artistString = artistA + " with " + artistB;
+				}
+
+				else {
+					var artistCount = song.spotifyData.artists.length;
+					var mainArtist = song.spotifyData.artists[0].name;
+
+					var othersCount = (artistCount - 1).toString();
+
+					var artistString = mainArtist + " with " + othersCount + " others";
+				}
+
+				songArtistElement.textContent = artistString;
+
+				choiceElement.appendChild(songTitleElement);
+				choiceElement.appendChild(songArtistElement);
 			};
 
 
