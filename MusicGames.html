@@ -333,13 +333,10 @@
 
 			this.initialize = function() {
 				this.setSongList(chartFrom1981);
+				this.gamedata.songChoices = this.selectRandomSongs(this.gamedata.songChoiceCount);
 
 				this.ui = new UserInterface();
 				this.ui.initialize();
-
-				//for (var songIndex = 0; songIndex < songs.length; songIndex++) {
-				//	songs[songIndex].setSpotifyData();
-				//}
 
 				this.addEventListeners("startButton", "click");
 				this.addEventListeners("playSong", "click");
@@ -347,7 +344,6 @@
 
 			this.setSongList = function(songData) {
 				var songs = [];
-				//this.gamedata.songs = [];
 
 				for (var i = 0; i < songData.length; i++) {
 					songs.push(new Song(songData[i].artist, songData[i].title));
@@ -385,15 +381,10 @@
 				this.ui.removeWelcome();
 				this.ui.showGame();
 
-				var songCount = 9;
-				var randomSongs = this.selectRandomSongs(this.gamedata.songChoiceCount);
-
 				var correctSongIndex = Math.floor(Math.random() * this.gamedata.songChoiceCount);
 
 				this.gamedata.audioPreview = new Audio();
-				this.gamedata.audioPreview.src = randomSongs[correctSongIndex].spotifyData.preview_url;
-
-				this.gamedata.songChoices = randomSongs;
+				this.gamedata.audioPreview.src = this.gamedata.songChoices[correctSongIndex].spotifyData.preview_url;
 
 				var choiceContainer = document.getElementsByClassName("albumArt");
 
