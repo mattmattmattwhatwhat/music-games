@@ -157,12 +157,12 @@
 
 				// set this.spotifyData to track result
 				if (matchedSong != null) {
-					console.log('Successfully matched:', this.artist, this.trackName);
+					//console.log('Successfully matched:', this.artist, this.trackName);
 					this.spotifyData = matchedSong;
 				}
 
 				else {
-					console.log("Couldn't get spotify data for:", this.artist, this.trackName);
+					//console.log("Couldn't get spotify data for:", this.artist, this.trackName);
 				}
 			};
 		};
@@ -241,7 +241,7 @@
 				}
 			}
 
-			console.log('Returning best result for:', artist, trackName, bestTrackResult);
+			//console.log('Returning best result for:', artist, trackName, bestTrackResult);
 
 			return bestTrackResult;
 		}
@@ -293,7 +293,55 @@
 			};
 
 			this.handleEvent = function(e) {
-				console.log(e);
+				var eventType = e.type;
+				var eventElement = e.srcElement;
+
+				if (eventElement.id == 'startButton') {
+					this.beginGame();
+				}
+			};
+
+			this.beginGame = function() {
+				this.ui.removeWelcome();
+
+				var randomSongs = this.selectRandomSongs(9);
+
+				//console.log(this.songs.length);
+				console.log(randomSongs);
+			};
+
+			this.selectRandomSongs = function(songsToSelect) {
+				var randomSongs = [];
+
+				for (var i = 0; i < songsToSelect; i++) {
+					var songsNeeded = songsToSelect - i;
+
+					if (songsNeeded > this.songs.length) {
+						alert("Couldn't find enough songs to play");
+						break;
+					}
+
+					var randIndex = Math.floor(Math.random() * this.songs.length);
+					var randomSong = this.songs.splice(randIndex, 1)[0];
+
+					if (randomSong.spotifyData === null) {
+						randomSong.setSpotifyData();
+
+						if (randomSong.spotifyData != null) {
+							randomSongs.push(randomSong);
+						}
+
+						else {
+							songsToSelect++;
+						}
+					}
+
+					else {
+						randomSongs.push(randomSong);
+					}
+				}
+
+				return randomSongs;
 			};
 		};
 
