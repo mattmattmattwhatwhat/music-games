@@ -7,9 +7,18 @@
 			color: #0000FF;
 		}
 
-		#gameChoices .albumArt {
-			background-color: #0000FF;
-			width: 310px;
+		#gameChoices {
+			display: table;
+		}
+
+		.choicesRow {
+			border: 1px #000000 solid;
+			display: table-row;
+		}
+
+		.gameChoice {
+			border: 2px #FF0000 dashed;
+			display: table-cell;
 		}
 
 	</style>
@@ -26,15 +35,23 @@
 			<button id="playSong">Play!</button>
 
 			<div id="gameChoices">
-				<div class="albumArt" id="choice1"/>
-				<div class="albumArt" id="choice2"/>
-				<div class="albumArt" id="choice3"/>
-				<div class="albumArt" id="choice4"/>
-				<div class="albumArt" id="choice5"/>
-				<div class="albumArt" id="choice6"/>
-				<div class="albumArt" id="choice7"/>
-				<div class="albumArt" id="choice8"/>
-				<div class="albumArt" id="choice9"/>
+				<div class="choicesRow">
+					<div class="gameChoice" id="choice1"></div>
+					<div class="gameChoice" id="choice2"></div>
+					<div class="gameChoice" id="choice3"></div>
+				</div>
+
+				<div class="choicesRow">
+					<div class="gameChoice" id="choice4"></div>
+					<div class="gameChoice" id="choice5"></div>
+					<div class="gameChoice" id="choice6"></div>
+				</div>
+
+				<div class="choicesRow">
+					<div class="gameChoice" id="choice7"></div>
+					<div class="gameChoice" id="choice8"></div>
+					<div class="gameChoice" id="choice9"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -289,6 +306,7 @@
 				//var artContainer = document.createElement("div");
 				var albumArt = new Image();
 				albumArt.src = artSource;
+				albumArt.className = "albumArt";
 
 				return albumArt;
 			};
@@ -312,7 +330,7 @@
 					var mediumArt = albumImages[1].url;
 					var smallArt = albumImages[2].url;
 
-					var albumArt = this.createAlbumArtImage(mediumArt);
+					var albumArt = this.createAlbumArtImage(smallArt);
 					choiceContainer.appendChild(albumArt);
 				}
 			};
@@ -341,8 +359,17 @@
 				this.ui = new UserInterface();
 				this.ui.initialize();
 
-				this.addEventListeners("startButton", "click");
-				this.addEventListeners("playSong", "click");
+				var startButton = document.getElementById("startButton");
+				var playButton = document.getElementById("playSong");
+
+				this.addEventListeners(startButton, "click");
+				this.addEventListeners(playButton, "click");
+
+				//var gameChoices = document.getElementsByClassName("gameChoice");
+
+				//for (var i = 0; i < gameChoices.length; i++) {
+				//	this.addEventListeners(gameChoices[i].id, "click");
+				//}
 			};
 
 			this.setSongList = function(songData) {
@@ -362,8 +389,8 @@
 				this.gamedata.songs = songs;
 			};
 
-			this.addEventListeners = function(elementId, listenerType) {
-				var element = document.getElementById(elementId);
+			this.addEventListeners = function(element, listenerType) {
+				//var element = document.getElementById(elementId);
 				element.addEventListener(listenerType, this, false);
 			};
 
@@ -371,12 +398,18 @@
 				var eventType = e.type;
 				var eventElement = e.srcElement;
 
+				console.log(eventElement);
+
 				if (eventElement.id == 'startButton') {
 					this.beginGame();
 				}
 
 				else if (eventElement.id == 'playSong') {
 					this.playSongPreview();
+				}
+
+				else if (eventElement.className == 'albumArt') {
+					console.log('clicked game choice', e);
 				}
 			};
 
@@ -389,9 +422,21 @@
 				this.gamedata.audioPreview = new Audio();
 				this.gamedata.audioPreview.src = this.gamedata.songChoices[correctSongIndex].spotifyData.preview_url;
 
-				var choiceContainer = document.getElementsByClassName("albumArt");
+				var choiceContainers = document.getElementsByClassName("gameChoice");
 
-				this.ui.addChoicesArt(this.gamedata.songChoices, choiceContainer);
+				this.ui.addChoicesArt(this.gamedata.songChoices, choiceContainers);
+
+				for (var i = 0; i < choiceContainers.length; i++) {
+					var choiceArt = choiceContainers[i].childNodes[0];
+
+					if (choiceArt.className == "albumArt") {
+						this.addEventListeners(choiceArt, "click");
+					}
+
+					else {
+						console.log("Couldn't add art event listener...");
+					}
+				}
 			};
 
 			this.playSongPreview = function() {
