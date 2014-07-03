@@ -3,12 +3,18 @@
 
 <head>
 	<style type="text/css">
+		body {
+			margin: 0px;
+		}
+
 		#startButton {
 			color: #0000FF;
 		}
 
 		#gameChoices {
 			display: table;
+			width: 80%;
+			margin-left: 10%;
 		}
 
 		.choicesRow {
@@ -19,6 +25,8 @@
 		.gameChoice {
 			border: 2px #FF0000 dashed;
 			display: table-cell;
+			width: 32%;
+			text-align: center;
 		}
 
 	</style>
@@ -290,6 +298,7 @@
 		UserInterface = function() {
 			this.initialize = function() {
 				var gameContainer = document.getElementById("gameContainer");
+				gameContainer.width = window.innerWidth;
 				gameContainer.hidden = true;
 			};
 
@@ -321,6 +330,8 @@
 					return;
 				}
 
+				var containerSize = choiceElements[0].clientWidth;
+
 				for (var i = 0; i < songChoices.length; i++) {
 					var choiceContainer = choiceElements[i];
 					var albumImages = songChoices[i].spotifyData.album.images;
@@ -329,7 +340,14 @@
 					var mediumArt = albumImages[1].url;
 					var smallArt = albumImages[2].url;
 
-					var albumArt = this.createAlbumArtImage(smallArt);
+					if (containerSize > 320) {
+						var albumArt = this.createAlbumArtImage(mediumArt);
+					}
+
+					else {
+						var albumArt = this.createAlbumArtImage(smallArt);
+					}
+
 					choiceContainer.appendChild(albumArt);
 
 					this.addSongInformationToChoice(songChoices[i], choiceContainer);
@@ -446,6 +464,7 @@
 				this.ui.showGame();
 
 				var correctSongIndex = Math.floor(Math.random() * this.gamedata.songChoiceCount);
+				console.log(this.gamedata.songChoices[correctSongIndex]);
 
 				this.gamedata.audioPreview = new Audio();
 				this.gamedata.audioPreview.src = this.gamedata.songChoices[correctSongIndex].spotifyData.preview_url;
