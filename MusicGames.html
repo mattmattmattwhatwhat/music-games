@@ -16,6 +16,19 @@
 			<h1>Hi</h1>
 			<button id="startButton">Get started!</button>
 		</div>
+
+		<div id="gameContainer">
+			<button id="playSong">Play!</button>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+			<div class="albumArt"/>
+		</div>
 	</div>
 
 	<script type="text/javascript">
@@ -249,10 +262,20 @@
 		// UI Handling
 
 		UserInterface = function() {
+			this.initialize = function() {
+				var gameContainer = document.getElementById("gameContainer");
+				gameContainer.hidden = true;
+			}
+
 			this.removeWelcome = function() {
 				var welcomeContainer = document.getElementById("welcomeContainer");
 				welcomeContainer.remove();
 			};
+
+			this.showGame = function() {
+				var gameContainer = document.getElementById("gameContainer");
+				gameContainer.hidden = false;
+			}
 		};
 
 		// Game Handling
@@ -260,16 +283,22 @@
 		Game = function() {
 			this.songs = null;
 
+			this.songChoices = null;
+			this.songToGuessPreviewLink = null;
+			this.audioPreview = null;
+
 			this.initialize = function() {
 				this.setSongList(chartFrom1981);
 
 				this.ui = new UserInterface();
+				this.ui.initialize();
 
 				//for (var songIndex = 0; songIndex < songs.length; songIndex++) {
 				//	songs[songIndex].setSpotifyData();
 				//}
 
 				this.addEventListeners("startButton", "click");
+				this.addEventListeners("playSong", "click");
 			};
 
 			this.setSongList = function(songData) {
@@ -299,15 +328,31 @@
 				if (eventElement.id == 'startButton') {
 					this.beginGame();
 				}
+
+				else if (eventElement.id == 'playSong') {
+					this.playSongPreview();
+				}
 			};
 
 			this.beginGame = function() {
 				this.ui.removeWelcome();
+				this.ui.showGame();
 
-				var randomSongs = this.selectRandomSongs(9);
+				var songCount = 9;
+				var randomSongs = this.selectRandomSongs(songCount);
 
-				//console.log(this.songs.length);
-				console.log(randomSongs);
+				var correctSongIndex = Math.floor(Math.random() * songCount);
+
+				this.audioPreview = new Audio();
+				this.audioPreview.src = randomSongs[correctSongIndex].spotifyData.preview_url;
+
+				this.songChoices = randomSongs;
+			};
+
+			this.playSongPreview = function() {
+				if (this.audioPreview.paused) {
+					this.audioPreview.play();
+				}
 			};
 
 			this.selectRandomSongs = function(songCount) {
