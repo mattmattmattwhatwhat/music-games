@@ -19,15 +19,15 @@
 
 		<div id="gameContainer">
 			<button id="playSong">Play!</button>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
-			<div class="albumArt"/>
+			<div class="albumArt" id="choice1"/>
+			<div class="albumArt" id="choice2"/>
+			<div class="albumArt" id="choice3"/>
+			<div class="albumArt" id="choice4"/>
+			<div class="albumArt" id="choice5"/>
+			<div class="albumArt" id="choice6"/>
+			<div class="albumArt" id="choice7"/>
+			<div class="albumArt" id="choice8"/>
+			<div class="albumArt" id="choice9"/>
 		</div>
 	</div>
 
@@ -265,7 +265,7 @@
 			this.initialize = function() {
 				var gameContainer = document.getElementById("gameContainer");
 				gameContainer.hidden = true;
-			}
+			};
 
 			this.removeWelcome = function() {
 				var welcomeContainer = document.getElementById("welcomeContainer");
@@ -275,7 +275,41 @@
 			this.showGame = function() {
 				var gameContainer = document.getElementById("gameContainer");
 				gameContainer.hidden = false;
-			}
+			};
+
+			this.createAlbumArtImage = function(artSource) {
+				//var artContainer = document.createElement("div");
+				var albumArt = new Image();
+				albumArt.src = artSource;
+
+				return albumArt;
+			};
+
+			this.addChoicesArt = function(songChoices, choiceElements) {
+				// bug: doesn't make sure the image has loaded before
+				// displaying so you can end up with broken images
+
+				if (songChoices.length != choiceElements.length) {
+					alert("Song choice count doesn't match choice container count");
+					return;
+				}
+
+				for (var i = 0; i < songChoices.length; i++) {
+					var choiceContainer = choiceElements[i];
+					var albumImages = songChoices[i].spotifyData.album.images;
+
+					//console.log(albumImages);
+
+					var largeArt = albumImages[0].url;
+					var mediumArt = albumImages[1].url;
+					var smallArt = albumImages[2].url;
+
+					var albumArt = this.createAlbumArtImage(smallArt);
+					choiceContainer.appendChild(albumArt);
+				}
+			};
+
+
 		};
 
 		// Game Handling
@@ -360,6 +394,10 @@
 				this.gamedata.audioPreview.src = randomSongs[correctSongIndex].spotifyData.preview_url;
 
 				this.gamedata.songChoices = randomSongs;
+
+				var choiceContainer = document.getElementsByClassName("albumArt");
+
+				this.ui.addChoicesArt(this.gamedata.songChoices, choiceContainer);
 			};
 
 			this.playSongPreview = function() {
