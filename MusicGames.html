@@ -280,7 +280,17 @@
 
 		// Game Handling
 
+		GameData = function() {
+			this.songs = null;
+
+			this.roundNumber = 0;
+			this.songChoiceCount = 9;
+			this.songChoices = null;
+			this.audioPreview = null;
+		};
+
 		Game = function() {
+			this.gamedata = new GameData();
 			this.songs = null;
 
 			this.songChoices = null;
@@ -302,18 +312,21 @@
 			};
 
 			this.setSongList = function(songData) {
-				this.songs = [];
+				var songs = [];
+				//this.gamedata.songs = [];
 
 				for (var i = 0; i < songData.length; i++) {
-					this.songs.push(new Song(songData[i].artist, songData[i].title));
+					songs.push(new Song(songData[i].artist, songData[i].title));
 
-					this.songs[this.songs.length - 1].year = 1981;
-					this.songs[this.songs.length - 1].yearRank = songData[i].rank;
+					songs[songs.length - 1].year = 1981;
+					songs[songs.length - 1].yearRank = songData[i].rank;
 
 					if (songData.length < 10) {
-						this.songs[this.songs.length - 1].setSpotifyData();
+						songs[songs.length - 1].setSpotifyData();
 					}
 				}
+
+				this.gamedata.songs = songs;
 			};
 
 			this.addEventListeners = function(elementId, listenerType) {
@@ -339,19 +352,22 @@
 				this.ui.showGame();
 
 				var songCount = 9;
-				var randomSongs = this.selectRandomSongs(songCount);
+				var randomSongs = this.selectRandomSongs(this.gamedata.songChoiceCount);
 
-				var correctSongIndex = Math.floor(Math.random() * songCount);
+				var correctSongIndex = Math.floor(Math.random() * this.gamedata.songChoiceCount);
 
-				this.audioPreview = new Audio();
-				this.audioPreview.src = randomSongs[correctSongIndex].spotifyData.preview_url;
+				this.gamedata.audioPreview = new Audio();
+				this.gamedata.audioPreview.src = randomSongs[correctSongIndex].spotifyData.preview_url;
 
-				this.songChoices = randomSongs;
+				this.gamedata.songChoices = randomSongs;
 			};
 
 			this.playSongPreview = function() {
-				if (this.audioPreview.paused) {
-					this.audioPreview.play();
+				if (this.gamedata.audioPreview.paused) {
+					this.gamedata.audioPreview.play();
+				}
+				else {
+					this.gamedata.audioPreview.pause();
 				}
 			};
 
@@ -365,17 +381,17 @@
 				for (var i = 0; i < songCount; i++) {
 					var songsNeeded = songCount - i;
 
-					if (songsNeeded > this.songs.length) {
+					if (songsNeeded > this.gamedata.songs.length) {
 						for (var j = 0; j < randomSongs.length; j++) {
-							this.songs.push(randomSongs[j]);
+							this.gamedata.songs.push(randomSongs[j]);
 						}
 
 						alert("Couldn't find enough songs to play");
 						return null;
 					}
 
-					var randIndex = Math.floor(Math.random() * this.songs.length);
-					var randomSong = this.songs.splice(randIndex, 1)[0];
+					var randIndex = Math.floor(Math.random() * this.gamedata.songs.length);
+					var randomSong = this.gamedata.songs.splice(randIndex, 1)[0];
 
 					if (randomSong.spotifyData === null) {
 						randomSong.setSpotifyData();
