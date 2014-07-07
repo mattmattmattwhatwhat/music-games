@@ -11,6 +11,8 @@ class Song:
 		self.artist = artist
 		self.title = song_title
 
+		self.found_perfect_match = False
+
 	def find_match_in_found_tracks(self, search_items):
 		# can't distinguish between multiple perfect matches
 		# picks the first it encounters
@@ -46,6 +48,7 @@ class Song:
 			total_matches = artist_matches + title_matches
 
 			if total_matches == possible_matches:
+				self.found_perfect_match = True
 				perfect_matches.append(item)
 
 			if total_matches > best_match_count:
@@ -62,6 +65,9 @@ class Song:
 				if artist_name == self.artist.lower():
 					return match
 
+		print 'got best item for',
+		print song.artist,
+		print song.title
 		return best_item
 
 
@@ -78,13 +84,70 @@ def search_for_track(song_title):
 
 song_set = []
 
+song_count = 0
+
+just_ids = open('1976_ids.txt', 'w')
+
+with open('songout2.txt') as f:
+	just_ids.write('[')
+	first_id = True
+
+	for line in f:
+		song_count += 1
+		split_line = line.split('\t')
+
+		if not first_id:
+			just_ids.write(', ')
+
+		print repr(split_line[-1])
+		just_ids.write(split_line[-1].strip())
+
+		if first_id:
+			first_id = False
+
+	just_ids.write(']\n')
+
+print song_count
+just_ids.close()
+
 with open('song_list.txt') as f:
 	for line in f:
 		song_info = line.strip().split('\t')
 		song_set.append(Song(song_info[2], song_info[3]))
 
-for song in song_set[:1]:
-	search_results = search_for_track(song.title)
-	song_results = search_results['tracks']['items']
+# with open('songout.txt', 'w') as f:
+# 	for song in song_set:
+# 		search_results = search_for_track(song.title)
+# 		song_results = search_results['tracks']['items']
 
-	print song.find_match_in_found_tracks(song_results)
+# 		best_match = song.find_match_in_found_tracks(song_results)
+
+# 		print 'writing:',
+# 		print song.artist,
+# 		print song.title,
+
+# 		if song.found_perfect_match:
+# 			f.write('y\t')
+# 		else:
+# 			f.write('n\t')
+
+# 		f.write(song.artist)
+# 		f.write('\t')
+# 		f.write(song.title)
+# 		f.write('\t')
+
+# 		for artist in best_match['artists']:
+# 			f.write(artist['name'])
+# 			f.write(' ')
+
+# 		f.write('\t')
+# 		print best_match['name']
+# 		f.write(best_match['name'].encode('ascii', 'ignore'))
+# 		f.write('\t')
+# 		f.write(best_match['id'])
+
+# 		f.write('\n')
+
+
+
+
