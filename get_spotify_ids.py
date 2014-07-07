@@ -100,7 +100,9 @@ with open('songout2.txt') as f:
 			just_ids.write(', ')
 
 		print repr(split_line[-1])
+		just_ids.write("'")
 		just_ids.write(split_line[-1].strip())
+		just_ids.write("'")
 
 		if first_id:
 			first_id = False
