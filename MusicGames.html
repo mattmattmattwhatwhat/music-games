@@ -178,6 +178,16 @@
 			return JSON.parse(trackRequest.responseText);
 		}
 
+		function getArtUrlsFromSongSet(songSet) {
+			artSet = [];
+
+			for (var i = 0; i < songSet.length; i++) {
+				artSet.push(songSet[i].album.images[1].url);
+			}
+
+			return artSet;
+		}
+
 		function createImageFromUrl(imageUrl) {
 			var img = new Image();
 			img.src = imageUrl;
@@ -195,6 +205,7 @@
 
 		GameData = function() {
 			this.songSet = null; // an array of spotify track objects
+			this.idSet = spotifyIds;
 
 			this.optionCount = 9;
 			this.songOptions = null;
@@ -258,6 +269,15 @@
 						this.data.songSet.push(getTrackBySpotifyId(songIds[i]));
 					}
 				}
+			};
+
+			this.startGame = function() {
+				this.data.setSongOptions();
+
+				var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
+				var artUrls = getArtUrlsFromSongSet(this.data.songOptions);
+				console.log(this.data.songOptions[chosenSongIndex]);
+				console.log(artUrls);
 			};
 
 			/*
@@ -439,6 +459,7 @@
 
 		var game = new Game();
 		game.initialize();
+		game.startGame();
 		//game.beginGame();
 
 
