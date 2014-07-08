@@ -33,10 +33,19 @@
 
 		.gameChoice {
 			height: 100%;
+			width: 100%;
+			/*text-align: center;
+			border: 1px dashed red;
+			display: inline-block;*/
+		}
+
+		.choiceOverlay {
+			z-index: 4;
+			height: 100%;
 			width: 20%;
+			display: inline-block;
 			text-align: center;
 			border: 1px dashed red;
-			display: inline-block;
 		}
 
 		.blurred {
@@ -98,81 +107,99 @@
 
 			<div id="choiceContainer">
 				<div class="choiceRow">
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 				</div>
 
 				<div class="choiceRow">
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 				</div>
 
 				<div class="choiceRow">
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 
-					<div class="gameChoice">
-							<img class="placeholderImage blurred"/>
-							<div class="songInformationContainer blurred">
-								<p>Song title</p>
-								<p>Artist name</p>
-							</div>
-					</div>
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="placeholderImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -426,6 +453,12 @@
 				var startButton = document.getElementById("startButton");
 				startButton.addEventListener("click", this, false);
 
+				var choiceSpans = document.getElementsByClassName("choiceOverlay");
+
+				for (var i = 0; i < choiceSpans.length; i++) {
+					choiceSpans[i].addEventListener("click", this, false);
+				}
+
 				/*if (this.data.songSet === null) {
 					this.data.songSet = [];
 
@@ -463,6 +496,7 @@
 			};
 
 			this.handleEvent = function(e) {
+				console.log(e);
 				var clickedElement = e.target;
 				var clickedId = e.target.id;
 
