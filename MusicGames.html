@@ -198,6 +198,34 @@
 
 			this.optionCount = 9;
 			this.songOptions = null;
+
+			this.setSongOptions = function() {
+				if (this.songSet === null || this.songSet.length < this.optionCount) {
+					alert("Couldn't select songs to choose from!");
+					return;
+				}
+
+				if (this.songOptions === null) {
+					this.songOptions = [];
+				}
+
+				else {
+					alert("Song options not null");
+					return;
+				}
+
+				for (var i = 0; i < this.optionCount; i++) {
+					var randIndex = Math.floor(Math.random() * this.songSet.length);
+					var randomSong = this.songSet[randIndex];
+
+					while (this.songOptions.indexOf(randomSong) != -1) {
+						var newRandIndex = Math.floor(Math.random() * this.songSet.length);
+						randomSong = this.songSet[newRandIndex];
+					}
+
+					this.songOptions.push(randomSong);
+				}
+			};
 		};
 
 		Game = function() {
