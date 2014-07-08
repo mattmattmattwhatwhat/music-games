@@ -199,6 +199,22 @@
 			this.optionCount = 9;
 			this.songOptions = null;
 
+			this.removeSongFromSet = function(trackObject) {
+				if (this.songSet === null) {
+					alert("No set to remove song from!");
+					return;
+				}
+
+				var songIndex = this.songSet.indexOf(trackObject);
+
+				if (songIndex == -1) {
+					alert("Song not found in set");
+					return;
+				}
+
+				var removedSong = this.songSet.splice(songIndex, 1);
+			};
+
 			this.setSongOptions = function() {
 				if (this.songSet === null || this.songSet.length < this.optionCount) {
 					alert("Couldn't select songs to choose from!");
