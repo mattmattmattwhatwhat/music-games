@@ -298,7 +298,29 @@
 		// UI Handling
 
 		UserInterface = function() {
+			this.initialize = function() {
+				var placeholderImages = document.getElementsByClassName("placeholderImage");
+				var placeHolderUrls = ["https://i.scdn.co/image/682bf4f6907c2fba55174731a785a12567b710e8", "https://i.scdn.co/image/0c95438d67fed97b73af499788a0fabbd03502b0", "https://i.scdn.co/image/150810312f2e14fbfc15739cc3ace0b0e5756676", "https://i.scdn.co/image/db21b2d486c91ef4553b22ecf6340c6004694703", "https://i.scdn.co/image/0067b9dad0b455e90bbe04e161eda040a25b43a0", "https://i.scdn.co/image/91d54a93760914865d8d9939f2fe280972f714bd", "https://i.scdn.co/image/0e606a9b964b2f1762648c78a2973283dfdb24ee", "https://i.scdn.co/image/5aa5fb84963b8dee7500803db9df1942f3c57f2a", "https://i.scdn.co/image/f61693da3e016ea7b6f83a5f4a4d3c63183695fe"];
 
+				for (var i = 0; i < placeholderImages.length; i++) {
+					placeholderImages[i].src = placeHolderUrls[i%placeholderImages.length];
+				}
+			};
+
+			this.startHandler = function() {
+				this.removeBlurEffect();
+
+				var screenOverlay = document.getElementById("screenOverlay");
+				screenOverlay.hidden = true;
+			};
+
+			this.removeBlurEffect = function() {
+				var blurredElements = document.getElementsByClassName("blurred");
+
+				for (var i = 0; i < blurredElements.length; i++) {
+					blurredElements[i].classList.remove("blurred");
+				}
+			};
 		};
 
 		// Game Handling
@@ -385,6 +407,11 @@
 				this.data = new GameData();
 				this.ui = new UserInterface();
 
+				this.ui.initialize();
+
+				var startButton = document.getElementById("startButton");
+				startButton.addEventListener("click", this, false);
+
 				/*if (this.data.songSet === null) {
 					this.data.songSet = [];
 
@@ -394,6 +421,7 @@
 						this.data.songSet.push(getTrackBySpotifyId(songIds[i]));
 					}
 				}*/
+				console.log(this.ui);
 			};
 
 			this.startGame = function() {
@@ -405,186 +433,23 @@
 				console.log(artUrls);
 			};
 
-			/*
-			this.data = new GameData();
-
-			this.initialize = function() {
-				this.setSongList(chartFrom1981);
-				this.data.songChoices = this.selectRandomSongs(this.data.songChoiceCount);
-
-				this.ui = new UserInterface();
-				this.ui.initialize();
-
-				var startButton = document.getElementById("startButton");
-				var playButton = document.getElementById("playSong");
-
-				this.addEventListeners(startButton, "click");
-				this.addEventListeners(playButton, "click");
-			};
-
-			this.setSongList = function(songData) {
-				var songs = [];
-
-				for (var i = 0; i < songData.length; i++) {
-					songs.push(new Song(songData[i].artist, songData[i].title));
-
-					songs[songs.length - 1].year = 1981;
-					songs[songs.length - 1].yearRank = songData[i].rank;
-
-					if (songData.length < 10) {
-						songs[songs.length - 1].setSpotifyData();
-					}
-				}
-
-				this.data.songs = songs;
-			};
-
-			this.addEventListeners = function(element, listenerType) {
-				element.addEventListener(listenerType, this, false);
-			};
-
 			this.handleEvent = function(e) {
-				var eventType = e.type;
-				var eventElement = e.srcElement;
+				var clickedElement = e.target;
+				var clickedId = e.target.id;
 
-				console.log(eventElement);
-
-				if (eventElement.id == 'startButton') {
-					this.beginGame();
-				}
-
-				else if (eventElement.id == 'playSong') {
-					this.playSongPreview();
-				}
-
-				else if (eventElement.className == 'albumArt') {
-					console.log(this.checkForSongMatch(e.toElement));
-					//console.log('clicked game choice', e.toElement.parentElement);
+				if (clickedId == "startButton") {
+					this.ui.startHandler();
+					this.startGame();
 				}
 			};
-
-			this.beginGame = function() {
-				this.ui.removeWelcome();
-				this.ui.showGame();
-
-				var correctSongIndex = Math.floor(Math.random() * this.data.songChoiceCount);
-				console.log(this.data.songChoices[correctSongIndex]);
-
-				this.data.audioPreview = new Audio();
-				this.data.audioPreview.src = this.data.songChoices[correctSongIndex].spotifyData.preview_url;
-
-				var choiceContainers = document.getElementsByClassName("gameChoice");
-
-				this.ui.addChoicesArt(this.data.songChoices, choiceContainers);
-
-				for (var i = 0; i < choiceContainers.length; i++) {
-					var choiceArt = choiceContainers[i].childNodes[0];
-
-					if (choiceArt.className == "albumArt") {
-						this.addEventListeners(choiceArt, "click");
-					}
-
-					else {
-						console.log("Couldn't add art event listener...");
-					}
-				}
-			};
-
-			this.playSongPreview = function() {
-				if (this.data.audioPreview.paused) {
-					this.data.audioPreview.play();
-				}
-				else {
-					this.data.audioPreview.pause();
-				}
-			};
-
-			this.selectRandomSongs = function(songCount) {
-				// attempts to remove n songs from this.data.songs and returns
-				// them as a new array with song.spotifyData info added
-				// returns null if there aren't enough available songs to choose from
-				// n = songCount
-				// ** fix this to not alter this.data.songs **
-
-				var randomSongs = [];
-
-				for (var i = 0; i < songCount; i++) {
-					var songsNeeded = songCount - i;
-
-					if (songsNeeded > this.data.songs.length) {
-						for (var j = 0; j < randomSongs.length; j++) {
-							this.data.songs.push(randomSongs[j]);
-						}
-
-						alert("Couldn't find enough songs to play");
-						return null;
-					}
-
-					var randIndex = Math.floor(Math.random() * this.data.songs.length);
-					var randomSong = this.data.songs.splice(randIndex, 1)[0];
-
-					if (randomSong.spotifyData === null) {
-						randomSong.setSpotifyData();
-
-						if (randomSong.spotifyData != null) {
-							randomSongs.push(randomSong);
-						}
-
-						else {
-							songCount++;
-						}
-					}
-
-					else {
-						randomSongs.push(randomSong);
-					}
-				}
-
-				return randomSongs;
-			};
-
-			this.checkForSongMatch = function(clickedElement) {
-				// clickedElement should be the album art image element
-				// this checks for a match by determining the correct song from
-				// the preview url, then compares the available album art urls
-				// to the clicked art url. this makes it a little harder to cheat
-				// than having the correct song stored in this.data
-
-				var correctSong = null;
-
-				for (var i = 0; i < this.data.songChoices.length; i++) {
-					var previewUrl = this.data.songChoices[i].spotifyData.preview_url;
-
-					if (previewUrl == this.data.audioPreview.src) {
-						correctSong = this.data.songChoices[i];
-
-						break;
-					}
-				}
-
-				if (correctSong != null) {
-					var correctSongArt = correctSong.spotifyData.album.images;
-
-					for (var i = 0; i < correctSongArt.length; i++) {
-						if (correctSongArt[i].url == clickedElement.src) {
-							return true;
-						}
-					}
-
-					return false;
-				}
-
-				console.log("Couldn't determine song match");
-				return null;
-			};
-			*/
 		};
 
 		// Testing -------------------
 
 		var game = new Game();
 		game.initialize();
-		game.startGame();
+		//game.startGame();
+		/*
 
 		var pageContainer = document.getElementById("pageContainer");
 		pageContainer.height = window.innerWidth;
@@ -605,7 +470,7 @@
 
 		for (var i = 0; i < blurredElements.length; i++) {
 			//blurredElements[i].classList.remove("blurred");
-		}
+		}*/
 		//game.beginGame();
 
 
