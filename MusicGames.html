@@ -3,24 +3,26 @@
 
 <head>
 	<style type="text/css">
-		body {
+		* {
 			margin: 0px;
 		}
 
 		#pageContainer {
 			height: 100vh;
+			z-index: 0;
 		}
 
 		#gameContainer {
 			border: 1px dashed black;
 			width: 100%;
 			height: 100%;
+			z-index: 1;
 		}
 
 		#choiceContainer {
 			margin: 0 auto;
 			border: 1px dashed blue;
-			height: 80%;
+			height: 85%;
 			width: auto;
 		}
 
@@ -38,7 +40,7 @@
 		}
 
 		.blurred {
-			-webkit-filter: blur(5px);
+			-webkit-filter: blur(8px);
 		}
 
 		.gameChoice img {
@@ -53,12 +55,47 @@
 			display: inline;
 		}
 
+		#screenOverlay {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+		}
+
+		#screenOverlay div {
+			height: 40%;
+		}
+
+		#screenOverlay #startContainer {
+			height: 20%;
+			background-color: #666666;
+			text-align: center;
+		}
+
+		#gameHeader {
+			margin: 0;
+			height: 10%;
+		}
+
 	</style>
 </head>
 
 <body>
 	<div id="pageContainer">
 		<div id="gameContainer">
+			<div id="screenOverlay">
+				<div ></div>
+				<div id="startContainer">
+					<h3>Ready?</h3>
+					<button id="startButton">Start</button>
+				</div>
+				<div></div>
+			</div>
+
+			<div id="gameHeader">
+				<p>header</p>
+			</div>
+
 			<div id="choiceContainer">
 				<div class="choiceRow">
 					<div class="gameChoice">
@@ -562,6 +599,12 @@
 			for (var i = 0; i < placeholderImages.length; i++) {
 				placeholderImages[i].src = game.data.songOptions[i].album.images[1].url;
 			}
+		}
+
+		var blurredElements = document.getElementsByClassName("blurred");
+
+		for (var i = 0; i < blurredElements.length; i++) {
+			//blurredElements[i].classList.remove("blurred");
 		}
 		//game.beginGame();
 
