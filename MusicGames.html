@@ -314,8 +314,20 @@
 				screenOverlay.hidden = true;
 			};
 
+			this.updateImageSources = function(imageElements, imageSrcs) {
+				if (imageElements.length != imageSrcs.length) {
+					alert("Couldn't update images");
+					return;
+				}
+
+				for (var i = 0; i < imageElements.length; i++) {
+					imageElements[i].src = imageSrcs[i];
+				}
+			};
+
 			this.removeBlurEffect = function() {
 				var blurredElements = document.getElementsByClassName("blurred");
+				console.log(blurredElements);
 
 				for (var i = 0; i < blurredElements.length; i++) {
 					blurredElements[i].classList.remove("blurred");
@@ -331,6 +343,8 @@
 
 			this.optionCount = 9;
 			this.songOptions = null;
+
+			this.audioPreview = null;
 
 			this.removeSongFromSet = function(trackObject) {
 				if (this.songSet === null) {
@@ -425,12 +439,27 @@
 			};
 
 			this.startGame = function() {
+				this.ui.startHandler();
 				this.data.setSongOptions();
 
 				var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
 				var artUrls = getArtUrlsFromSongSet(this.data.songOptions);
+
+				var placeholderImages = document.getElementsByClassName("placeholderImage");
+
+				this.ui.updateImageSources(placeholderImages, artUrls);
+
+				while (document.getElementsByClassName("blurred").length > 0) {
+					this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
+				}
+
+				var chosenSong = this.data.songOptions[chosenSongIndex];
+				this.data.audioPreview = new Audio();
+				this.data.audioPreview.src = chosenSong.preview_url;
+				this.data.audioPreview.play();
+
 				console.log(this.data.songOptions[chosenSongIndex]);
-				console.log(artUrls);
+				//console.log(artUrls);
 			};
 
 			this.handleEvent = function(e) {
@@ -438,7 +467,6 @@
 				var clickedId = e.target.id;
 
 				if (clickedId == "startButton") {
-					this.ui.startHandler();
 					this.startGame();
 				}
 			};
@@ -448,30 +476,6 @@
 
 		var game = new Game();
 		game.initialize();
-		//game.startGame();
-		/*
-
-		var pageContainer = document.getElementById("pageContainer");
-		pageContainer.height = window.innerWidth;
-		var gameContainer = document.getElementById("gameContainer");
-
-		var choiceSpans = document.getElementsByClassName("gameChoice");
-		var placeholderImages = document.getElementsByClassName("placeholderImage");
-		var choiceRows = document.getElementsByClassName("choiceRow");
-		var choiceContainer = document.getElementById("choiceContainer");
-
-		if (game.data.songOptions.length == placeholderImages.length) {
-			for (var i = 0; i < placeholderImages.length; i++) {
-				placeholderImages[i].src = game.data.songOptions[i].album.images[1].url;
-			}
-		}
-
-		var blurredElements = document.getElementsByClassName("blurred");
-
-		for (var i = 0; i < blurredElements.length; i++) {
-			//blurredElements[i].classList.remove("blurred");
-		}*/
-		//game.beginGame();
 
 
 	</script>
