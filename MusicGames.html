@@ -188,99 +188,16 @@
 		// UI Handling
 
 		UserInterface = function() {
-			/*
-			this.initialize = function() {
-				var gameContainer = document.getElementById("gameContainer");
-				gameContainer.width = window.innerWidth;
-				gameContainer.hidden = true;
-			};
 
-			this.removeWelcome = function() {
-				var welcomeContainer = document.getElementById("welcomeContainer");
-				welcomeContainer.remove();
-			};
-
-			this.showGame = function() {
-				var gameContainer = document.getElementById("gameContainer");
-				gameContainer.hidden = false;
-			};
-
-			this.addChoicesArt = function(songChoices, choiceElements) {
-				// bug: doesn't make sure the image has loaded before
-				// displaying so you can end up with broken images
-
-				if (songChoices.length != choiceElements.length) {
-					alert("Song choice count doesn't match choice container count");
-					return;
-				}
-
-				var containerSize = choiceElements[0].clientWidth;
-
-				for (var i = 0; i < songChoices.length; i++) {
-					var choiceContainer = choiceElements[i];
-					var albumImages = songChoices[i].spotifyData.album.images;
-
-					var largeArt = albumImages[0].url;
-					var mediumArt = albumImages[1].url;
-					var smallArt = albumImages[2].url;
-
-					if (containerSize > 320) {
-						var albumArt = createImageFromUrl(mediumArt);
-						albumArt.className = "albumArt";
-					}
-
-					else {
-						var albumArt = createImageFromUrl(smallArt);
-						albumArt.className = "albumArt";
-					}
-
-					choiceContainer.appendChild(albumArt);
-
-					this.addSongInformationToChoice(songChoices[i], choiceContainer);
-				}
-			};
-
-			this.addSongInformationToChoice = function(song, choiceElement) {
-				//console.log(song.spotifyData)
-				var songTitleElement = document.createElement("p");
-				var songArtistElement = document.createElement("p");
-
-				songTitleElement.className = "songTitles";
-				songArtistElement.className = "songArtists";
-
-				songTitleElement.textContent = song.spotifyData.name;
-
-				if (song.spotifyData.artists.length == 1) {
-					var artistString = song.spotifyData.artists[0].name;
-				}
-
-				else if (song.spotifyData.artists.length == 2) {
-					var artistString = song.spotifyData.artists[0].name +
-										" with " +
-										song.spotifyData.artists[1].name;
-				}
-
-				else {
-					var artistCount = song.spotifyData.artists.length;
-					var mainArtist = song.spotifyData.artists[0].name;
-
-					var othersCount = (artistCount - 1).toString();
-
-					var artistString = mainArtist + " with " + othersCount + " others";
-				}
-
-				songArtistElement.textContent = artistString;
-
-				choiceElement.appendChild(songTitleElement);
-				choiceElement.appendChild(songArtistElement);
-			};
-			*/
 		};
 
 		// Game Handling
 
 		GameData = function() {
-			this.songSet = null;
+			this.songSet = null; // an array of spotify track objects
+
+			this.optionCount = 9;
+			this.songOptions = null;
 		};
 
 		Game = function() {
