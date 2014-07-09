@@ -9,13 +9,8 @@ Game = function() {
 		//this.data.loadAllSpotifyData();
 		this.data.setSongOptions();
 
-		//var allArt = getArtUrlsFromSongSet(this.data.songSet);
-		//console.log(allArt);
-
 		var startButton = document.getElementById("startButton");
 		startButton.addEventListener("click", this, false);
-
-		//console.log(this.ui);
 	};
 
 	this.startGame = function() {

@@ -233,11 +233,9 @@
 		}
 
 		function getArtUrlsFromSongSet(songSet) {
-			console.log('getting art urls with', songSet);
 			artSet = [];
 
 			for (var i = 0; i < songSet.length; i++) {
-				console.log(i, songSet[i]);
 				if (songSet[i].album.images.length != 3) {
 					artSet.push("missing");
 				}
