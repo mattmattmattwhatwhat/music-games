@@ -15,8 +15,6 @@ Game = function() {
 	};
 
 	this.startGame = function() {
-		this.ui.startHandler();
-
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
 
@@ -27,9 +25,11 @@ Game = function() {
 			choiceSpans[i].addEventListener("click", this, false);
 		}
 
-		while (document.getElementsByClassName("blurred").length > 0) {
+		/*while (document.getElementsByClassName("blurred").length > 0) {
 			this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
-		}
+		}*/
+
+		this.ui.startHandler();
 
 		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
 		var chosenSong = this.data.songOptions[chosenSongIndex];

@@ -24,10 +24,13 @@ UserInterface = function() {
 
 	this.removeBlurEffect = function() {
 		var blurredElements = document.getElementsByClassName("blurred");
-		console.log(blurredElements);
-
+		//console.log(blurredElements);
 		for (var i = 0; i < blurredElements.length; i++) {
 			blurredElements[i].classList.remove("blurred");
+		}
+
+		while (document.getElementsByClassName("blurred").length > 0) {
+			this.removeBlurEffect(); // one pass wasn't removing all the blurs?
 		}
 	};
 
