@@ -1,10 +1,10 @@
 UserInterface = function() {
 	this.initialize = function() {
-		var placeholderImages = document.getElementsByClassName("placeholderImage");
+		var choiceImages = document.getElementsByClassName("choiceImage");
 		var placeHolderUrls = ["https://i.scdn.co/image/682bf4f6907c2fba55174731a785a12567b710e8", "https://i.scdn.co/image/0c95438d67fed97b73af499788a0fabbd03502b0", "https://i.scdn.co/image/150810312f2e14fbfc15739cc3ace0b0e5756676", "https://i.scdn.co/image/db21b2d486c91ef4553b22ecf6340c6004694703", "https://i.scdn.co/image/0067b9dad0b455e90bbe04e161eda040a25b43a0", "https://i.scdn.co/image/91d54a93760914865d8d9939f2fe280972f714bd", "https://i.scdn.co/image/0e606a9b964b2f1762648c78a2973283dfdb24ee", "https://i.scdn.co/image/5aa5fb84963b8dee7500803db9df1942f3c57f2a", "https://i.scdn.co/image/f61693da3e016ea7b6f83a5f4a4d3c63183695fe"];
 
-		for (var i = 0; i < placeholderImages.length; i++) {
-			placeholderImages[i].src = placeHolderUrls[i%placeholderImages.length];
+		for (var i = 0; i < choiceImages.length; i++) {
+			choiceImages[i].src = placeHolderUrls[i%choiceImages.length];
 		}
 	};
 
@@ -15,15 +15,11 @@ UserInterface = function() {
 		screenOverlay.hidden = true;
 	};
 
-	this.updateImageSources = function(imageElements, imageSrcs) {
-		if (imageElements.length != imageSrcs.length) {
-			alert("Couldn't update images");
-			return;
-		}
+	this.updateChoiceImages = function(spotifyTracks) {
+		var artUrls = getArtUrlsFromSongSet(spotifyTracks);
+		var choiceImages = document.getElementsByClassName("choiceImage");
 
-		for (var i = 0; i < imageElements.length; i++) {
-			imageElements[i].src = imageSrcs[i];
-		}
+		updateImageSources(choiceImages, artUrls);
 	};
 
 	this.removeBlurEffect = function() {

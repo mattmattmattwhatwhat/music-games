@@ -22,25 +22,21 @@ Game = function() {
 	this.startGame = function() {
 		this.ui.startHandler();
 
-		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
-		var artUrls = getArtUrlsFromSongSet(this.data.songOptions);
-
-		var placeholderImages = document.getElementsByClassName("placeholderImage");
-
-		this.ui.updateImageSources(placeholderImages, artUrls);
+		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
 
 		while (document.getElementsByClassName("blurred").length > 0) {
 			this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
 		}
 
+		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
 		var chosenSong = this.data.songOptions[chosenSongIndex];
+
 		this.data.audioPreview = new Audio();
 		this.data.audioPreview.src = chosenSong.preview_url;
 		this.data.audioPreview.play();
 
 		console.log(this.data.songOptions[chosenSongIndex]);
-		//console.log(artUrls);
 	};
 
 	this.handleEvent = function(e) {
@@ -54,7 +50,7 @@ Game = function() {
 			return;
 		}
 
-		else if (clickedElementClassList.contains("placeholderImage")) {
+		else if (clickedElementClassList.contains("choiceImage")) {
 			var clickedTrack = this.getTrackOptionFromImageUrl(clickedElement.src);
 			if (clickedTrack.preview_url == this.data.audioPreview.src){
 				//console.log("Match!");

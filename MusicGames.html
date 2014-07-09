@@ -28,7 +28,7 @@
 				<div class="choiceRow">
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -38,7 +38,7 @@
 
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -48,39 +48,7 @@
 
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
-								<div class="songInformationContainer blurred">
-									<p>Song title</p>
-									<p>Artist name</p>
-								</div>
-						</div>
-					</span>
-				</div>
-
-				<div class="choiceRow">
-					<span class="choiceOverlay">
-						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
-								<div class="songInformationContainer blurred">
-									<p>Song title</p>
-									<p>Artist name</p>
-								</div>
-						</div>
-					</span>
-
-					<span class="choiceOverlay">
-						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
-								<div class="songInformationContainer blurred">
-									<p>Song title</p>
-									<p>Artist name</p>
-								</div>
-						</div>
-					</span>
-
-					<span class="choiceOverlay">
-						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -92,7 +60,7 @@
 				<div class="choiceRow">
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -102,7 +70,7 @@
 
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -112,7 +80,39 @@
 
 					<span class="choiceOverlay">
 						<div class="gameChoice">
-								<img class="placeholderImage blurred"/>
+								<img class="choiceImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
+				</div>
+
+				<div class="choiceRow">
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="choiceImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
+
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="choiceImage blurred"/>
+								<div class="songInformationContainer blurred">
+									<p>Song title</p>
+									<p>Artist name</p>
+								</div>
+						</div>
+					</span>
+
+					<span class="choiceOverlay">
+						<div class="gameChoice">
+								<img class="choiceImage blurred"/>
 								<div class="songInformationContainer blurred">
 									<p>Song title</p>
 									<p>Artist name</p>
@@ -241,10 +241,21 @@
 			return img;
 		}
 
+		function updateImageSources(imageElements, imageSrcs) {
+			if (imageElements.length != imageSrcs.length) {
+				alert("Couldn't update images");
+				return;
+			}
+
+			for (var i = 0; i < imageElements.length; i++) {
+				imageElements[i].src = imageSrcs[i];
+			}
+		}
+
 		// Testing -------------------
 
 		var game = new Game();
-		game.data.idSet = spotifyIds;
+		//game.data.idSet = spotifyIds;
 		game.initialize();
 
 
