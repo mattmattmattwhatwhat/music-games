@@ -47,6 +47,17 @@ GameData = function() {
 		var removedSong = this.songSet.splice(songIndex, 1);
 	};
 
+	this.loadAllSpotifyData = function() {
+		this.songSet = [];
+
+		if (this.idSet != null) {
+			for (var i = 0; i < this.idSet.length; i++) {
+				var song = getTrackBySpotifyId(this.idSet[i]);
+				this.songSet.push(song);
+			}
+		}
+	};
+
 	this.setSongOptions = function() {
 		if (this.songOptions === null) {
 			this.songOptions = [];

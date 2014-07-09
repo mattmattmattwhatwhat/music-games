@@ -16,6 +16,7 @@ UserInterface = function() {
 	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
+		console.log('updating choice images with', spotifyTracks);
 		var artUrls = getArtUrlsFromSongSet(spotifyTracks);
 		var choiceImages = document.getElementsByClassName("choiceImage");
 

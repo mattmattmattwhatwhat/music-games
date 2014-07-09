@@ -6,7 +6,11 @@ Game = function() {
 		this.ui.initialize();
 
 		this.data.loadSongGroup();
+		//this.data.loadAllSpotifyData();
 		this.data.setSongOptions();
+
+		//var allArt = getArtUrlsFromSongSet(this.data.songSet);
+		//console.log(allArt);
 
 		var startButton = document.getElementById("startButton");
 		startButton.addEventListener("click", this, false);
@@ -25,10 +29,6 @@ Game = function() {
 			choiceSpans[i].addEventListener("click", this, false);
 		}
 
-		/*while (document.getElementsByClassName("blurred").length > 0) {
-			this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
-		}*/
-
 		this.ui.startHandler();
 
 		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
@@ -38,7 +38,7 @@ Game = function() {
 		this.data.audioPreview.src = chosenSong.preview_url;
 		this.data.audioPreview.play();
 
-		console.log(this.data.songOptions[chosenSongIndex]);
+		console.log(this.data.songOptions[chosenSongIndex].name);
 	};
 
 	this.handleEvent = function(e) {
