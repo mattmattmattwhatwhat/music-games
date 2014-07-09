@@ -267,15 +267,15 @@
 		}
 
 		function removeClassFromElement(element, className) {
-			element.classList.remove(newClassName);
+			element.classList.remove(className);
 		}
 
-		function removeClassFromElementAndChildren(element, newClassName) {
-			removeClassFromElement(element, newClassName);
+		function removeClassFromElementAndChildren(element, className) {
+			removeClassFromElement(element, className);
 
 			if (element.childElementCount > 0) {
 				for (var i = 0; i < element.childElementCount; i++) {
-					removeClassFromElementAndChildren(element.children[i], newClassName);
+					removeClassFromElementAndChildren(element.children[i], className);
 				}
 			}
 		}
