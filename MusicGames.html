@@ -266,6 +266,20 @@
 			}
 		}
 
+		function removeClassFromElement(element, className) {
+			element.classList.remove(newClassName);
+		}
+
+		function removeClassFromElementAndChildren(element, newClassName) {
+			removeClassFromElement(element, newClassName);
+
+			if (element.childElementCount > 0) {
+				for (var i = 0; i < element.childElementCount; i++) {
+					removeClassFromElementAndChildren(element.children[i], newClassName);
+				}
+			}
+		}
+
 		// Testing -------------------
 
 		var game = new Game();
