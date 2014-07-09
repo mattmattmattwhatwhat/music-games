@@ -10,6 +10,7 @@
 		#pageContainer {
 			height: 100vh;
 			z-index: 0;
+			background-color: #EEEEEE;
 		}
 
 		#gameContainer {
@@ -22,7 +23,7 @@
 		#choiceContainer {
 			margin: 0 auto;
 			border: 1px dashed blue;
-			height: 85%;
+			height: 90vh;
 			width: auto;
 		}
 
@@ -34,18 +35,25 @@
 		.gameChoice {
 			height: 100%;
 			width: 100%;
+			background-color: #999999;
 			/*text-align: center;
 			border: 1px dashed red;
 			display: inline-block;*/
 		}
 
 		.choiceOverlay {
+			/*margin-bottom: 2%;*/
+			margin-left: 2px;
+			margin-right: 2px;
 			z-index: 4;
-			height: 100%;
-			width: 20%;
+			height: 96%;
+			width: 30%;
+			/*padding: 2%;*/
 			display: inline-block;
 			text-align: center;
-			border: 1px dashed red;
+			background-color: #555555;
+			color: #FFFFFF;
+			/*border: 1px dashed red;*/
 		}
 
 		.blurred {
@@ -57,11 +65,16 @@
 			width: auto;
 		}
 
+		.songInformationContainer {
+			height: 15%;
+			overflow: hidden;
+		}
+
 		.songInformationContainer p {
 			font-family: sans-serif;
 			font-size: 70%;
-			height: 10%;
-			display: inline;
+			height: auto;
+			/*display: inline;*/
 		}
 
 		#screenOverlay {
@@ -83,7 +96,7 @@
 
 		#gameHeader {
 			margin: 0;
-			height: 10%;
+			height: 5vh;
 		}
 
 	</style>
@@ -360,6 +373,31 @@
 					blurredElements[i].classList.remove("blurred");
 				}
 			};
+
+			this.setSongInformation = function(spotifyTracks) {
+				var infoElements = document.getElementsByClassName("songInformationContainer");
+
+				if (infoElements.length != spotifyTracks.length) {
+					alert("Couldn't set song information");
+					return;
+				}
+
+				for (var i = 0; i < infoElements.length; i++) {
+					var children = infoElements[i].children;
+					var trackName = spotifyTracks[i].name;
+
+					var artistName = spotifyTracks[i].artists[0].name;
+
+					if (spotifyTracks[i].artists.length > 1) {
+						for (var j = 1; j < spotifyTracks[i].artists.length; j++) {
+							artistName = artistName + ' and ' + spotifyTracks[i].artists[j].name;
+						}
+					}
+
+					children[0].innerText = trackName;
+					children[1].innerText = artistName;
+				}
+			}
 		};
 
 		// Game Handling
@@ -468,12 +506,12 @@
 						this.data.songSet.push(getTrackBySpotifyId(songIds[i]));
 					}
 				}*/
+				this.data.setSongOptions();
 				console.log(this.ui);
 			};
 
 			this.startGame = function() {
 				this.ui.startHandler();
-				this.data.setSongOptions();
 
 				var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
 				var artUrls = getArtUrlsFromSongSet(this.data.songOptions);
@@ -481,6 +519,7 @@
 				var placeholderImages = document.getElementsByClassName("placeholderImage");
 
 				this.ui.updateImageSources(placeholderImages, artUrls);
+				this.ui.setSongInformation(this.data.songOptions);
 
 				while (document.getElementsByClassName("blurred").length > 0) {
 					this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
@@ -498,11 +537,37 @@
 			this.handleEvent = function(e) {
 				console.log(e);
 				var clickedElement = e.target;
+				var clickedElementClassList = clickedElement.classList;
 				var clickedId = e.target.id;
 
 				if (clickedId == "startButton") {
 					this.startGame();
 				}
+
+				else if (clickedElementClassList.contains("placeholderImage")) {
+					var clickedTrack = this.getTrackOptionFromImageUrl(clickedElement.src);
+					if (clickedTrack.preview_url == this.data.audioPreview.src){
+						//console.log("Match!");
+						alert("You got it!");
+					}
+					else {
+						console.log("Wronggg");
+					}
+				}
+			};
+
+			this.getTrackOptionFromImageUrl = function(url) {
+				for (var i = 0; i < this.data.songOptions.length; i++) {
+					var track = this.data.songOptions[i];
+
+					for (var j = 0; j < track.album.images.length; j++) {
+						if (url == track.album.images[j].url) {
+							return track;
+						}
+					}
+				}
+
+				return null;
 			};
 		};
 
