@@ -4,19 +4,14 @@ Game = function() {
 	
 	this.initialize = function() {
 		this.ui.initialize();
+
 		this.data.loadSongGroup();
+		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
 		startButton.addEventListener("click", this, false);
 
-		var choiceSpans = document.getElementsByClassName("choiceOverlay");
-
-		for (var i = 0; i < choiceSpans.length; i++) {
-			choiceSpans[i].addEventListener("click", this, false);
-		}
-
-		this.data.setSongOptions();
-		console.log(this.ui);
+		//console.log(this.ui);
 	};
 
 	this.startGame = function() {
@@ -24,6 +19,13 @@ Game = function() {
 
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
+
+		var choiceSpans = document.getElementsByClassName("choiceOverlay");
+
+		for (var i = 0; i < choiceSpans.length; i++) {
+			addClassToElementAndChildren(choiceSpans[i], "clickableChoice");
+			choiceSpans[i].addEventListener("click", this, false);
+		}
 
 		while (document.getElementsByClassName("blurred").length > 0) {
 			this.ui.removeBlurEffect(); // one pass wasn't removing all the blurs?
@@ -50,15 +52,44 @@ Game = function() {
 			return;
 		}
 
-		else if (clickedElementClassList.contains("choiceImage")) {
-			var clickedTrack = this.getTrackOptionFromImageUrl(clickedElement.src);
-			if (clickedTrack.preview_url == this.data.audioPreview.src){
-				//console.log("Match!");
-				alert("You got it!");
+		else if (clickedElementClassList.contains("clickableChoice")) {
+			this.checkGuess(clickedElement);
+		}
+	};
+
+	this.checkGuess = function(clickedElement) {
+		if (clickedElement.classList.contains("choiceOverlay")) {
+			var choiceSpan = clickedElement;
+		}
+
+		else {
+			var parent = clickedElement.parentElement;
+
+			while (!parent.classList.contains("choiceOverlay")) {
+				parent = parent.parentElement;
 			}
-			else {
-				console.log("Wronggg");
+
+			var choiceSpan = parent;
+		}
+
+		var choiceContainer = choiceSpan.firstElementChild;
+		var choiceImage = null;
+
+		for (var i = 0; i < choiceContainer.children.length; i++) {
+			if (choiceContainer.children[i].classList.contains("choiceImage")) {
+				choiceImage = choiceContainer.children[i];
+				break;
 			}
+		}
+
+		var trackGuess = this.getTrackOptionFromImageUrl(choiceImage.src);
+
+		if (trackGuess.preview_url == this.data.audioPreview.src) {
+			console.log("correct");
+		}
+
+		else {
+			console.log("wrong");
 		}
 	};
 
@@ -76,3 +107,5 @@ Game = function() {
 		return null;
 	};
 };
+
+var x = null;

@@ -252,6 +252,20 @@
 			}
 		}
 
+		function addClassToElement(element, newClassName) {
+			element.classList.add(newClassName);
+		}
+
+		function addClassToElementAndChildren(element, newClassName) {
+			addClassToElement(element, newClassName);
+
+			if (element.childElementCount > 0) {
+				for (var i = 0; i < element.childElementCount; i++) {
+					addClassToElementAndChildren(element.children[i], newClassName);
+				}
+			}
+		}
+
 		// Testing -------------------
 
 		var game = new Game();
