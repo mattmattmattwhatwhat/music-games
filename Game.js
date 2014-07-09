@@ -51,6 +51,7 @@ Game = function() {
 
 		if (clickedId == "startButton") {
 			this.startGame();
+			return;
 		}
 
 		else if (clickedElementClassList.contains("placeholderImage")) {
