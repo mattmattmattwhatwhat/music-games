@@ -4,6 +4,7 @@ Game = function() {
 	
 	this.initialize = function() {
 		this.ui.initialize();
+		this.data.loadSongGroup();
 
 		var startButton = document.getElementById("startButton");
 		startButton.addEventListener("click", this, false);
@@ -14,15 +15,6 @@ Game = function() {
 			choiceSpans[i].addEventListener("click", this, false);
 		}
 
-		/*if (this.data.songSet === null) {
-			this.data.songSet = [];
-
-			var songIds = spotifyIds;
-
-			for (var i = 0; i < songIds.length; i++) {
-				this.data.songSet.push(getTrackBySpotifyId(songIds[i]));
-			}
-		}*/
 		this.data.setSongOptions();
 		console.log(this.ui);
 	};
