@@ -91,15 +91,15 @@ GameData = function() {
 			for (var i = 0; i < this.optionCount; i++) {
 				var randIndex = Math.floor(Math.random() * this.idSet.length);
 				var randomId = this.idSet[randIndex];
+				var randomSong = getTrackBySpotifyId(randomId);
 
-				while (chosenIds.indexOf(randomId) != -1) {
+				while (chosenIds.indexOf(randomId) != -1 || !trackHasAlbumArt(randomSong)) {
 					var newRandIndex = Math.floor(Math.random() * this.idSet.length);
 					randomId = this.idSet[newRandIndex];
+					randomSong = getTrackBySpotifyId(randomId);
 				}
 
 				chosenIds.push(randomId);
-
-				var randomSong = getTrackBySpotifyId(randomId);
 
 				this.songSet.push(randomSong);
 				this.songOptions.push(randomSong);

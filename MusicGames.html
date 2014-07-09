@@ -224,6 +224,14 @@
 			return JSON.parse(trackRequest.responseText);
 		}
 
+		function trackHasAlbumArt(track) {
+			// returns true or false
+			if (track.album.images.length == 3) {
+				return true;
+			}
+			return false;
+		}
+
 		function getArtUrlsFromSongSet(songSet) {
 			console.log('getting art urls with', songSet);
 			artSet = [];
