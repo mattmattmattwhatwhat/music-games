@@ -55,21 +55,25 @@
 	-webkit-filter: blur(8px);
 }
 
-.gameChoice img {
+/*.gameChoice img {
 	height: 80%;
+	width: auto;
+}*/
+
+.choiceImage {
+	height: 75%;
 	width: auto;
 }
 
 .songInformationContainer {
-	height: 15%;
+	height: 100%;
 	overflow: hidden;
 }
 
 .songInformationContainer p {
 	font-family: sans-serif;
 	font-size: 70%;
-	height: auto;
-	/*display: inline;*/
+	height: 10%;
 }
 
 #screenOverlay {

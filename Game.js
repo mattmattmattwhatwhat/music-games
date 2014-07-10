@@ -71,12 +71,20 @@ Game = function() {
 		var choiceImage = null;
 
 		for (var i = 0; i < choiceContainer.children.length; i++) {
-			if (choiceContainer.children[i].classList.contains("choiceImage")) {
-				choiceImage = choiceContainer.children[i];
+			if (choiceContainer.children[i].classList.contains("songInformationContainer")) {
+				var songInfo = choiceContainer.children[i];
 				break;
 			}
 		}
 
+		for (var i = 0; i < songInfo.children.length; i++) {
+			if (songInfo.children[i].classList.contains("choiceImage")) {
+				choiceImage = songInfo.children[i];
+				break;
+			}
+		}
+
+		console.log(choiceContainer);
 		var trackGuess = this.getTrackOptionFromImageUrl(choiceImage.src);
 
 		if (trackGuess.preview_url == this.data.audioPreview.src) {
