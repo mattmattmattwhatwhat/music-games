@@ -82,9 +82,9 @@ UserInterface = function() {
 		var artistPara = document.createElement("p");
 		artistPara.classList.add("artistLabel");
 
-		songInfoDiv.appendChild(titlePara);
-		songInfoDiv.appendChild(choiceImage);
 		songInfoDiv.appendChild(artistPara);
+		songInfoDiv.appendChild(choiceImage);
+		songInfoDiv.appendChild(titlePara);
 
 		choiceDiv.appendChild(songInfoDiv);
 		choiceSpan.appendChild(choiceDiv);
