@@ -106,15 +106,28 @@ Game = function() {
 
 		if (guessIsCorrect) {
 			var guessScore = Math.floor((30000 - guessTime)/100);
+			this.data.score += guessScore;
 			console.log('correct!');
-			console.log((30000 - guessTime)/100);
+			//console.log((30000 - guessTime)/100);
 		}
 
 		else {
 			console.log('wrong!');
 			console.log(guessTime);
 		}
-	}
+
+		if (this.data.round < this.data.maxRounds) {
+			// ui overlay next round
+			this.data.roundStartTime = null;
+			this.data.round += 1;
+			return;
+		}
+
+		else {
+			// ui show final screen
+		}
+
+	};
 
 	this.getTrackOptionFromImageUrl = function(url) {
 		for (var i = 0; i < this.data.songOptions.length; i++) {
