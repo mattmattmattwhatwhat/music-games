@@ -115,9 +115,19 @@ Game = function() {
 			console.log('wrong!');
 			console.log(guessTime);
 		}
-
+		console.log(this.data.round, this.data.maxRounds);
 		if (this.data.round < this.data.maxRounds) {
 			// ui overlay next round
+			var between = document.getElementById("betweenRoundsContainer");
+			between.hidden = false;
+
+			var screenOverlay = document.getElementById("screenOverlay");
+			//screenOverlay.classList.add("blurred");
+			screenOverlay.hidden = false;
+
+			var choiceContainer = document.getElementById("choiceContainer");
+			choiceContainer.classList.add("blurred");
+
 			this.data.roundStartTime = null;
 			this.data.round += 1;
 			return;

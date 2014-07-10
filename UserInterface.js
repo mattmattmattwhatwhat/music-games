@@ -1,12 +1,9 @@
 UserInterface = function() {
 	this.initialize = function() {
-		this.fillChoiceContainer();
-		/*var choiceImages = document.getElementsByClassName("choiceImage");
-		var placeHolderUrls = ["https://i.scdn.co/image/682bf4f6907c2fba55174731a785a12567b710e8", "https://i.scdn.co/image/0c95438d67fed97b73af499788a0fabbd03502b0", "https://i.scdn.co/image/150810312f2e14fbfc15739cc3ace0b0e5756676", "https://i.scdn.co/image/db21b2d486c91ef4553b22ecf6340c6004694703", "https://i.scdn.co/image/0067b9dad0b455e90bbe04e161eda040a25b43a0", "https://i.scdn.co/image/91d54a93760914865d8d9939f2fe280972f714bd", "https://i.scdn.co/image/0e606a9b964b2f1762648c78a2973283dfdb24ee", "https://i.scdn.co/image/5aa5fb84963b8dee7500803db9df1942f3c57f2a", "https://i.scdn.co/image/f61693da3e016ea7b6f83a5f4a4d3c63183695fe"];
+		var betweenRounds = document.getElementById("betweenRoundsContainer");
+		betweenRounds.hidden = true;
 
-		for (var i = 0; i < choiceImages.length; i++) {
-			choiceImages[i].src = placeHolderUrls[i%choiceImages.length];
-		}*/
+		this.fillChoiceContainer();
 	};
 
 	this.startHandler = function() {
@@ -14,6 +11,9 @@ UserInterface = function() {
 
 		var screenOverlay = document.getElementById("screenOverlay");
 		screenOverlay.hidden = true;
+
+		var startContainer = document.getElementById("startContainer");
+		startContainer.hidden = true;
 	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
@@ -63,7 +63,7 @@ UserInterface = function() {
 
 		var choiceSpan = document.createElement("span");
 		choiceSpan.classList.add("choiceOverlay");
-		choiceSpan.classList.add("blurred");
+		//choiceSpan.classList.add("blurred");
 
 		var choiceDiv = document.createElement("div");
 		choiceDiv.classList.add("gameChoice");
