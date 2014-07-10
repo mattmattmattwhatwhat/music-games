@@ -33,6 +33,8 @@ Game = function() {
 		this.data.audioPreview.src = chosenSong.preview_url;
 		this.data.audioPreview.play();
 
+		this.data.roundStartTime = Date.now();
+
 		console.log(this.data.songOptions[chosenSongIndex].name);
 	};
 
@@ -48,7 +50,7 @@ Game = function() {
 		}
 
 		else if (clickedElementClassList.contains("clickableChoice")) {
-			this.checkGuess(clickedElement);
+			this.handleGuess(clickedElement);
 		}
 	};
 
@@ -88,13 +90,31 @@ Game = function() {
 		var trackGuess = this.getTrackOptionFromImageUrl(choiceImage.src);
 
 		if (trackGuess.preview_url == this.data.audioPreview.src) {
-			console.log("correct");
+			return true;
 		}
 
 		else {
-			console.log("wrong");
+			return false;
 		}
 	};
+
+	this.handleGuess = function(clickedElement) {
+		var guessTime = Date.now() - this.data.roundStartTime;
+		this.data.audioPreview.pause();
+
+		var guessIsCorrect = this.checkGuess(clickedElement);
+
+		if (guessIsCorrect) {
+			var guessScore = Math.floor((30000 - guessTime)/100);
+			console.log('correct!');
+			console.log((30000 - guessTime)/100);
+		}
+
+		else {
+			console.log('wrong!');
+			console.log(guessTime);
+		}
+	}
 
 	this.getTrackOptionFromImageUrl = function(url) {
 		for (var i = 0; i < this.data.songOptions.length; i++) {

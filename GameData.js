@@ -9,6 +9,12 @@ GameData = function() {
 
 	this.audioPreview = null;
 
+	this.score = 0;
+
+	this.round = 0;
+	this.roundStartTime = null;
+
+
 	this.loadSongGroup = function(listOfSongs, songListType) {
 		// song type can be: 'spotifyTracks', 'spotifyIds'
 
