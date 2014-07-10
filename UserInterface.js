@@ -30,11 +30,11 @@ UserInterface = function() {
 		var message = document.getElementById("betweenRoundsMessage");
 
 		if (correctGuess) {
-			message.innerText = "Congratulations! You got it!";
+			message.textContent = "Congratulations! You got it!";
 		}
 
 		else {
-			message.innerText = "Close? Maybe?";
+			message.textContent = "Close? Maybe?";
 			// add way to display the correct song
 		}
 
@@ -75,8 +75,8 @@ UserInterface = function() {
 				}
 			}
 
-			titlePara.innerText = trackName;
-			artistPara.innerText = artistName;
+			titlePara.textContent = trackName;
+			artistPara.textContent = artistName;
 		}
 	};
 
@@ -99,11 +99,11 @@ UserInterface = function() {
 
 		var titlePara = document.createElement("p");
 		titlePara.classList.add("titleLabel");
-		titlePara.innerText = "What a Wonderful Tune";
+		titlePara.textContent = "What a Wonderful Tune";
 
 		var artistPara = document.createElement("p");
 		artistPara.classList.add("artistLabel");
-		artistPara.innerText = "Artist and the band";
+		artistPara.textContent = "Artist and the band";
 
 		songInfoDiv.appendChild(artistPara);
 		songInfoDiv.appendChild(choiceImage);
