@@ -63,24 +63,25 @@ UserInterface = function() {
 
 		var choiceSpan = document.createElement("span");
 		choiceSpan.classList.add("choiceOverlay");
+		choiceSpan.classList.add("blurred");
 
 		var choiceDiv = document.createElement("div");
 		choiceDiv.classList.add("gameChoice");
 
 		var choiceImage = new Image();
 		choiceImage.classList.add("choiceImage");
-		choiceImage.classList.add("blurred");
 		choiceImage.src = placeHolderUrls[Math.floor(Math.random() * placeHolderUrls.length)];
 
 		var songInfoDiv = document.createElement("div");
 		songInfoDiv.classList.add("songInformationContainer");
-		songInfoDiv.classList.add("blurred");
 
 		var titlePara = document.createElement("p");
 		titlePara.classList.add("titleLabel");
+		titlePara.innerText = "What a Wonderful Tune";
 
 		var artistPara = document.createElement("p");
 		artistPara.classList.add("artistLabel");
+		artistPara.innerText = "Artist and the band";
 
 		songInfoDiv.appendChild(artistPara);
 		songInfoDiv.appendChild(choiceImage);
