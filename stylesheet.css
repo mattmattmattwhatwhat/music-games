@@ -83,6 +83,11 @@
 	text-align: center;
 }
 
+#screenOverlay #betweenRoundsContainer {
+	height: 20%;
+	text-align: center;
+}
+
 #gameHeader {
 	margin: 0;
 	height: 5vh;

@@ -23,6 +23,28 @@ UserInterface = function() {
 		updateImageSources(choiceImages, artUrls);
 	};
 
+	this.showBetweenRoundsScreen = function(roundNumber, currentScore, correctGuess) {
+		var container = document.getElementById("betweenRoundsContainer");
+		container.hidden = false;
+
+		var message = document.getElementById("betweenRoundsMessage");
+
+		if (correctGuess) {
+			message.innerText = "Congratulations! You got it!";
+		}
+
+		else {
+			message.innerText = "Close? Maybe?";
+			// add way to display the correct song
+		}
+
+		var screenOverlay = document.getElementById("screenOverlay");
+		screenOverlay.hidden = false;
+
+		var choiceContainer = document.getElementById("choiceContainer");
+		choiceContainer.classList.add("blurred");
+	}
+
 	this.removeBlurEffect = function() {
 		var blurredElements = document.getElementsByClassName("blurred");
 		var elementCount = blurredElements.length;
