@@ -5,7 +5,8 @@
 #pageContainer {
 	height: 100vh;
 	z-index: 0;
-	background-color: rgb(50,50,50);
+	background-color: rgb(255,255,255);
+	font-family: Arial;
 }
 
 #gameContainer {
@@ -17,9 +18,9 @@
 #choiceContainer {
 	margin: 0 auto;
 	padding-top: 1.5%;
-	color: rgb(250,250,250);
 	height: 90vh;
-	width: auto;
+	width: 90%;
+	color: rgb(0,0,0);
 }
 
 .choiceRow {
@@ -28,11 +29,12 @@
 }
 
 .gameChoice {
-	height: 90%;
-	width: 90%;
-	border-radius: 5px;
+	height: 85%;
+	width: 85%;
+	border-radius: 0px;
 	padding: 4%;
-	background-color: rgb(60,60,60);
+	background-color: rgb(240,240,240);
+	font-size: 10px;
 }
 
 .choiceOverlay {
@@ -92,4 +94,9 @@
 	margin: 0;
 	height: 5vh;
 	text-align: center;
+}
+
+#startButton {
+	height: 50%;
+	width: 20%;
 }
