@@ -11,6 +11,9 @@ Game = function() {
 
 		var startButton = document.getElementById("startButton");
 		startButton.addEventListener("click", this, false);
+
+		var continueButton = document.getElementById("continueButton");
+		continueButton.addEventListener("click", this, false);
 	};
 
 	this.startGame = function() {
@@ -47,6 +50,10 @@ Game = function() {
 		if (clickedId == "startButton") {
 			this.startGame();
 			return;
+		}
+
+		else if (clickedId == "continueButton") {
+			this.nextRound();
 		}
 
 		else if (clickedElementClassList.contains("clickableChoice")) {
@@ -118,17 +125,23 @@ Game = function() {
 
 		if (this.data.round < this.data.maxRounds) {
 			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessIsCorrect);
-			// ui overlay next round
-
 			this.data.roundStartTime = null;
-			this.data.round += 1;
+
 			return;
 		}
 
 		else {
 			// ui show final screen
 		}
+	};
 
+	this.nextRound = function() {
+		this.data.round += 1;
+		// get next set of random songs
+		// choose song to play
+		// update ui/show all guesses
+		// hide mid round overlay
+		// set round start time
 	};
 
 	this.getTrackOptionFromImageUrl = function(url) {
