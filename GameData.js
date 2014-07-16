@@ -66,6 +66,48 @@ GameData = function() {
 	};
 
 	this.setSongOptions = function() {
+		// set the song options for each round
+		// the method used will be determined by this.songGroupType
+
+		if (this.songGroupType === null) {
+			alert("Couldn't set song options");
+			console.log("GameData.songGroupType not set...");
+			return;
+		}
+
+		if (this.songGroupType == 'spotifyIds') {
+			if (this.idSet === null || this.idSet.length < this.optionCount) {
+				alert("Couldn't set song options");
+				console.log("GameData.idSet issue:", this.idSet);
+				return;
+			}
+
+			var chosenIds = [];
+			this.songOptions = [];
+
+			for (var i = 0; i < this.optionCount; i++) {
+				var randIndex = Math.floor(Math.random() * this.idSet.length);
+				var randomId = this.idSet[randIndex];
+				var randomSong = getTrackBySpotifyId(randomId);
+
+				while (chosenIds.indexOf(randomId) != -1 || !trackHasAlbumArt(randomSong)) {
+					var newRandIndex = Math.floor(Math.random() * this.idSet.length);
+					randomId = this.idSet[newRandIndex];
+					randomSong = getTrackBySpotifyId(randomId);
+				}
+
+				chosenIds.push(randomId);
+				this.songOptions.push(randomSong);
+			}
+
+			return;
+		}
+
+		else {
+			console.log("Didn't set song options...");
+			return;
+		}
+		/*
 		if (this.songOptions === null) {
 			this.songOptions = [];
 		}
@@ -116,6 +158,7 @@ GameData = function() {
 		}
 
 		alert("Couldn't load song choices!");
+		*/
 	};
 };
 
