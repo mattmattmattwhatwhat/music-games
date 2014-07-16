@@ -118,58 +118,6 @@ GameData = function() {
 			console.log("Didn't set song options...");
 			return;
 		}
-		/*
-		if (this.songOptions === null) {
-			this.songOptions = [];
-		}
-
-		if (this.songSet != null && this.songSet.length > this.optionCount) {
-			// if spotify data was preloaded
-			for (var i = 0; i < this.optionCount; i++) {
-				var randIndex = Math.floor(Math.random() * this.songSet.length);
-				var randomSong = this.songSet[randIndex];
-
-				while (this.songOptions.indexOf(randomSong) != -1) {
-					var newRandIndex = Math.floor(Math.random() * this.songSet.length);
-					randomSong = this.songSet[newRandIndex];
-				}
-
-				this.songOptions.push(randomSong);
-			}
-
-			return;
-		}
-
-		if (this.songSet === null && this.idSet != null &&
-			this.idSet.length > this.optionCount) {
-			// for lazy loading
-
-			this.songSet = [];
-
-			var chosenIds = [];
-
-			for (var i = 0; i < this.optionCount; i++) {
-				var randIndex = Math.floor(Math.random() * this.idSet.length);
-				var randomId = this.idSet[randIndex];
-				var randomSong = getTrackBySpotifyId(randomId);
-
-				while (chosenIds.indexOf(randomId) != -1 || !trackHasAlbumArt(randomSong)) {
-					var newRandIndex = Math.floor(Math.random() * this.idSet.length);
-					randomId = this.idSet[newRandIndex];
-					randomSong = getTrackBySpotifyId(randomId);
-				}
-
-				chosenIds.push(randomId);
-
-				this.songSet.push(randomSong);
-				this.songOptions.push(randomSong);
-			}
-
-			return;
-		}
-
-		alert("Couldn't load song choices!");
-		*/
 	};
 };
 

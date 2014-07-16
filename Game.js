@@ -6,7 +6,6 @@ Game = function() {
 		this.ui.initialize();
 
 		this.data.loadSongGroup();
-		//this.data.loadAllSpotifyData();
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
@@ -103,13 +102,10 @@ Game = function() {
 		if (guessIsCorrect) {
 			var guessScore = Math.floor((30000 - guessTime)/100);
 			this.data.score += guessScore;
-			console.log('correct!');
-			//console.log((30000 - guessTime)/100);
 		}
 
 		else {
-			console.log('wrong!');
-			console.log(guessTime);
+			// do something?
 		}
 
 		if (this.data.round < this.data.maxRounds) {
@@ -152,8 +148,6 @@ Game = function() {
 		this.data.audioPreview = new Audio();
 		this.data.audioPreview.src = chosenSong.preview_url;
 		this.data.audioPreview.play();
-
-		//this.data.roundStartTime = Date.now();
 
 		console.log(this.data.songOptions[chosenSongIndex].name);
 	};
