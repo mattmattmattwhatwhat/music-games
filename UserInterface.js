@@ -23,6 +23,18 @@ UserInterface = function() {
 		updateImageSources(choiceImages, artUrls);
 	};
 
+	this.updateScore = function(score) {
+		var scoreDisplay = document.getElementById("scoreDisplay");
+
+		scoreDisplay.textContent = score;
+	};
+
+	this.updateRound = function(round) {
+		var roundDisplay = document.getElementById("roundDisplay");
+
+		roundDisplay.textContent = round;
+	};
+
 	this.showBetweenRoundsScreen = function(roundNumber, currentScore, correctGuess) {
 		var container = document.getElementById("betweenRoundsContainer");
 		container.hidden = false;
@@ -31,6 +43,7 @@ UserInterface = function() {
 
 		if (correctGuess) {
 			message.textContent = "Congratulations! You got it!";
+			this.updateScore(currentScore);
 		}
 
 		else {

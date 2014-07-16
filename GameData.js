@@ -11,7 +11,7 @@ GameData = function() {
 
 	this.score = 0;
 
-	this.round = 1;
+	this.round = 0;
 	this.maxRounds = 10;
 	this.roundStartTime = null;
 

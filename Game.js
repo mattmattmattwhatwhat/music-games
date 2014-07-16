@@ -140,6 +140,8 @@ Game = function() {
 		this.data.setSongOptions();
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
+		this.ui.updateScore(this.data.score);
+		this.ui.updateRound(this.data.round);
 	};
 
 	this.setSongToGuess = function() {
