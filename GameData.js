@@ -54,6 +54,17 @@ GameData = function() {
 		var removedSong = this.songSet.splice(songIndex, 1);
 	};
 
+	this.removeIdFromIdSet = function(spotifyId) {
+		var idIndex = this.idSet.indexOf(spotifyId);
+
+		if (idIndex == -1) {
+			console.log("Didn't remove id from GameData.idSet");
+			return;
+		}
+
+		var removedId = this.idSet.splice(idIndex, 1);
+	}
+
 	this.loadAllSpotifyData = function() {
 		this.songSet = [];
 

@@ -85,6 +85,7 @@ Game = function() {
 		var trackGuess = this.getTrackOptionFromImageUrl(choiceImage.src);
 
 		if (trackGuess.preview_url == this.data.audioPreview.src) {
+			this.data.removeIdFromIdSet(trackGuess.id);
 			return true;
 		}
 
