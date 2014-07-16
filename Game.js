@@ -17,8 +17,7 @@ Game = function() {
 	};
 
 	this.startGame = function() {
-		this.ui.updateChoiceImages(this.data.songOptions);
-		this.ui.setSongInformation(this.data.songOptions);
+		this.setupRound();
 
 		var choiceSpans = document.getElementsByClassName("choiceOverlay");
 
@@ -27,18 +26,7 @@ Game = function() {
 			choiceSpans[i].addEventListener("click", this, false);
 		}
 
-		this.ui.startHandler();
-
-		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
-		var chosenSong = this.data.songOptions[chosenSongIndex];
-
-		this.data.audioPreview = new Audio();
-		this.data.audioPreview.src = chosenSong.preview_url;
-		this.data.audioPreview.play();
-
-		this.data.roundStartTime = Date.now();
-
-		console.log(this.data.songOptions[chosenSongIndex].name);
+		this.startRound();
 	};
 
 	this.handleEvent = function(e) {
@@ -53,7 +41,7 @@ Game = function() {
 		}
 
 		else if (clickedId == "continueButton") {
-			this.nextRound();
+			this.startRound();
 		}
 
 		else if (clickedElementClassList.contains("clickableChoice")) {
@@ -135,13 +123,36 @@ Game = function() {
 		}
 	};
 
-	this.nextRound = function() {
+	this.startRound = function() {
 		this.data.round += 1;
+		this.setupRound();
+		this.setSongToGuess();
+		this.ui.startHandler();
+		this.data.roundStartTime = Date.now();
 		// get next set of random songs
 		// choose song to play
 		// update ui/show all guesses
 		// hide mid round overlay
 		// set round start time
+	};
+
+	this.setupRound = function() {
+		this.data.setSongOptions();
+		this.ui.updateChoiceImages(this.data.songOptions);
+		this.ui.setSongInformation(this.data.songOptions);
+	};
+
+	this.setSongToGuess = function() {
+		var chosenSongIndex = Math.floor(Math.random() * this.data.songOptions.length);
+		var chosenSong = this.data.songOptions[chosenSongIndex];
+
+		this.data.audioPreview = new Audio();
+		this.data.audioPreview.src = chosenSong.preview_url;
+		this.data.audioPreview.play();
+
+		//this.data.roundStartTime = Date.now();
+
+		console.log(this.data.songOptions[chosenSongIndex].name);
 	};
 
 	this.getTrackOptionFromImageUrl = function(url) {
