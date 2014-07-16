@@ -116,6 +116,7 @@ Game = function() {
 		}
 
 		else {
+			this.ui.showGameOverScreen(this.data.score);
 			// ui show final screen
 		}
 	};

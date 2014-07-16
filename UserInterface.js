@@ -3,6 +3,9 @@ UserInterface = function() {
 		var betweenRounds = document.getElementById("betweenRoundsContainer");
 		betweenRounds.hidden = true;
 
+		var gameOverContainer = document.getElementById("gameOverContainer");
+		gameOverContainer.hidden = true;
+
 		this.fillChoiceContainer();
 	};
 
@@ -51,12 +54,29 @@ UserInterface = function() {
 			// add way to display the correct song
 		}
 
+		this.displayScreenOverlay();
+	};
+
+	this.showGameOverScreen = function(finalScore) {
+		var container = document.getElementById("betweenRoundsContainer");
+		container.hidden = true;
+
+		var gameOverContainer = document.getElementById("gameOverContainer");
+		gameOverContainer.hidden = false;
+
+		var gameOverScore = document.getElementById("gameOverScore");
+		gameOverScore.textContent = "You scored: " + finalScore.toString() + "!";
+
+		this.displayScreenOverlay();
+	};
+
+	this.displayScreenOverlay = function() {
 		var screenOverlay = document.getElementById("screenOverlay");
 		screenOverlay.hidden = false;
 
 		var choiceContainer = document.getElementById("choiceContainer");
 		choiceContainer.classList.add("blurred");
-	}
+	};
 
 	this.removeBlurEffect = function() {
 		var blurredElements = document.getElementsByClassName("blurred");

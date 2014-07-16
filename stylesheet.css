@@ -80,12 +80,7 @@
 	height: 40%;
 }
 
-#screenOverlay #startContainer {
-	height: 20%;
-	text-align: center;
-}
-
-#screenOverlay #betweenRoundsContainer {
+.overlayContainer {
 	height: 20%;
 	text-align: center;
 }
