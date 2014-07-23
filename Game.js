@@ -21,7 +21,7 @@ Game = function() {
 		var choiceSpans = document.getElementsByClassName("choiceOverlay");
 
 		for (var i = 0; i < choiceSpans.length; i++) {
-			addClassToElementAndChildren(choiceSpans[i], "clickableChoice");
+			addClassToAllDescendents(choiceSpans[i], "clickableChoice");
 			choiceSpans[i].addEventListener("click", this, false);
 		}
 

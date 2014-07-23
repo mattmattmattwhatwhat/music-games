@@ -184,12 +184,21 @@
 			element.classList.add(newClassName);
 		}
 
-		function addClassToElementAndChildren(element, newClassName) {
+
+		function addClassToElementAndDescendents(element, newClassName) {
 			addClassToElement(element, newClassName);
 
 			if (element.childElementCount > 0) {
 				for (var i = 0; i < element.childElementCount; i++) {
-					addClassToElementAndChildren(element.children[i], newClassName);
+					addClassToElementAndDescendents(element.children[i], newClassName);
+				}
+			}
+		}
+
+		function addClassToAllDescendents(element, newClassName) {
+			if (element.childElementCount > 0) {
+				for (var i = 0; i < element.childElementCount; i++) {
+					addClassToElementAndDescendents(element.children[i], newClassName);
 				}
 			}
 		}
