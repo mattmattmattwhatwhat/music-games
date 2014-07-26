@@ -215,6 +215,16 @@
 			}
 		}
 
+		function getTrackFromSetByPreviewUrl(audioUrl, trackSet) {
+			for (var i = 0; i < trackSet.length; i++) {
+				if (audioUrl == trackSet[i].preview_url) {
+					return trackSet[i];
+				}
+			}
+
+			return null;
+		}
+
 		// Testing -------------------
 
 		var game = new Game();

@@ -15,6 +15,9 @@ GameData = function() {
 	this.maxRounds = 3;
 	this.roundStartTime = null;
 
+	this.guessedSongs = [];
+	this.correctSongs = [];
+
 
 	this.loadSongGroup = function(listOfSongs, songListType) {
 		// song type can be: 'spotifyTracks', 'spotifyIds'

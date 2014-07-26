@@ -40,19 +40,21 @@ UserInterface = function() {
 		roundDisplay.textContent = roundText;
 	};
 
-	this.showBetweenRoundsScreen = function(roundNumber, currentScore, correctGuess) {
+	this.showBetweenRoundsScreen = function(roundNumber, currentScore, guessedSong, correctSong) {
 		var container = document.getElementById("betweenRoundsContainer");
 		container.hidden = false;
 
 		var message = document.getElementById("betweenRoundsMessage");
 
-		if (correctGuess) {
-			message.textContent = "Congratulations! You got it!";
+		if (guessedSong == correctSong) {
+			var congratsMessage = "Congratulations! " + guessedSong.name + " is right!";
+			message.textContent = congratsMessage;
 			this.updateScore(currentScore);
 		}
 
 		else {
-			message.textContent = "Close? Maybe?";
+			var wrongMessage = "Sorry, it was " + correctSong.name + ". You chose " + guessedSong.name  + ".";
+			message.textContent = wrongMessage;
 			// add way to display the correct song
 		}
 
