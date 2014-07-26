@@ -28,14 +28,16 @@ UserInterface = function() {
 
 	this.updateScore = function(score) {
 		var scoreDisplay = document.getElementById("scoreDisplay");
+		var scoreText = "Score: " + score.toString();
 
-		scoreDisplay.textContent = score;
+		scoreDisplay.textContent = scoreText;
 	};
 
 	this.updateRound = function(round) {
 		var roundDisplay = document.getElementById("roundDisplay");
+		var roundText = "Round: " + round.toString();
 
-		roundDisplay.textContent = round;
+		roundDisplay.textContent = roundText;
 	};
 
 	this.showBetweenRoundsScreen = function(roundNumber, currentScore, correctGuess) {

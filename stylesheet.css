@@ -64,7 +64,7 @@
 
 .songInformationContainer p {
 	font-family: sans-serif;
-    font-size: 200%;
+    font-size: 150%;
 	width: 100%;
 	height: 10%;
 	overflow: hidden;
@@ -73,15 +73,15 @@
 #screenOverlay {
 	position: absolute;
 	width: 100%;
-	height: 100%;
+	height: 95vh;
 	z-index: 10;
     background-color: rgba(0, 0, 0, .95);
     color: rgb(255,255,255);
 }
 
-#screenOverlay div {
-	height: 40%;
-}
+/*#screenOverlay div {
+	height: 20%;
+}*/
 
 #screenOverlay button {
     height: 30%;
@@ -90,6 +90,7 @@
 }
 
 .overlayContainer {
+    margin-top: 35vh;
 	height: 20%;
 	text-align: center;
 }
