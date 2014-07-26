@@ -152,7 +152,7 @@ Game = function() {
 			// do something?
 		}
 
-		if (this.data.round < this.data.maxRounds) {
+		if (this.data.round <= this.data.maxRounds) {
 			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessedSong, correctSong);
 			this.data.roundStartTime = null;
 
@@ -166,6 +166,11 @@ Game = function() {
 	};
 
 	this.startRound = function() {
+		if (this.data.round == this.data.maxRounds) {
+			this.ui.showGameOverScreen(this.data.score);
+			return;
+		}
+
 		this.data.round += 1;
 		this.setupRound();
 		this.setSongToGuess();
