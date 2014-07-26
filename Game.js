@@ -146,6 +146,8 @@ Game = function() {
 		if (guessedSong == correctSong) {
 			var guessScore = Math.floor((30000 - guessTime)/100);
 			this.data.score += guessScore;
+
+			this.data.removeIdFromIdSet(guessedSong.id); // so the same song won't come up twice in a game
 		}
 
 		else {
@@ -153,8 +155,13 @@ Game = function() {
 		}
 
 		if (this.data.round <= this.data.maxRounds) {
-			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessedSong, correctSong);
 			this.data.roundStartTime = null;
+			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessedSong, correctSong);
+
+			if (this.data.round == this.data.maxRounds) {
+				var continueButton = document.getElementById("continueButton");
+				continueButton.textContent = "Final score";
+			}
 
 			return;
 		}
