@@ -14,9 +14,12 @@ UserInterface = function() {
 
 		var screenOverlay = document.getElementById("screenOverlay");
 		screenOverlay.hidden = true;
+		screenOverlay.style["backgroundColor"] = "rgba(0, 0, 0, .7)";
 
 		var startContainer = document.getElementById("startContainer");
 		startContainer.hidden = true;
+
+
 	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
