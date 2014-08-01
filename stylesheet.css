@@ -1,12 +1,12 @@
 * {
 	margin: 0px;
+	font-family: Arial;
 }
 
 #pageContainer {
 	height: 100vh;
 	z-index: 0;
 	background-color: rgb(255,255,255);
-	font-family: Arial;
 }
 
 #gameContainer {
@@ -75,7 +75,7 @@
 	width: 100%;
 	height: 95vh;
 	z-index: 10;
-    background-color: rgba(0, 0, 0, .95);
+    background-color: rgba(0, 0, 0, .90);
     color: rgb(255,255,255);
 }
 
@@ -84,9 +84,18 @@
 }*/
 
 #screenOverlay button {
-    height: 30%;
+    height: 60%;
     width: 20%;
     border-radius: 10px;
+    font-size: 150%;
+    background-color: rgb(50, 50, 60);
+    border-color: rgb(50, 50, 60);
+    color: rgb(255, 255, 255);
+    padding: 0px;
+}
+
+#continueButton {
+	margin-top: 10%;
 }
 
 .overlayContainer {
