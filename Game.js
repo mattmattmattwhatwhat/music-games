@@ -156,7 +156,7 @@ Game = function() {
 
 		if (this.data.roundInfo.number <= this.data.roundInfo.totalNumber) {
 			this.data.roundInfo.startTime = null;
-			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessedSong, correctSong);
+			this.ui.showBetweenRoundsScreen(this.data.roundInfo, this.data.score, guessedSong, correctSong);
 
 			if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
 				var continueButton = document.getElementById("continueButton");
@@ -196,7 +196,7 @@ Game = function() {
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
 		this.ui.updateScore(this.data.score);
-		this.ui.updateRound(this.data.roundInfo.number);
+		this.ui.updateRound(this.data.roundInfo);
 	};
 
 	this.setSongToGuess = function() {

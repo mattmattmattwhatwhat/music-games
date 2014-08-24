@@ -36,14 +36,19 @@ UserInterface = function() {
 		scoreDisplay.textContent = scoreText;
 	};
 
-	this.updateRound = function(round) {
+	this.updateRound = function(roundInfo) {
+		console.log(roundInfo);
 		var roundDisplay = document.getElementById("roundDisplay");
-		var roundText = "Round: " + round.toString();
+		var roundText = "Round: " + roundInfo.number.toString();
 
+		var numberString = roundInfo.number.toString();
+		var totalCountString = roundInfo.totalNumber.toString();
+
+		var roundText = "Round " + numberString + " of " + totalCountString;
 		roundDisplay.textContent = roundText;
 	};
 
-	this.showBetweenRoundsScreen = function(roundNumber, currentScore, guessedSong, correctSong) {
+	this.showBetweenRoundsScreen = function(roundInfo, currentScore, guessedSong, correctSong) {
 		var container = document.getElementById("betweenRoundsContainer");
 		container.hidden = false;
 
