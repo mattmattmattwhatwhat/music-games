@@ -15,6 +15,12 @@ GameData = function() {
 	this.maxRounds = 3;
 	this.roundStartTime = null;
 
+	this.roundInfo = {
+		'number': 0,
+		'totalNumber': 5,
+		'startTime': null
+	};
+
 	this.guessedSongs = [];
 	this.correctSongs = [];
 

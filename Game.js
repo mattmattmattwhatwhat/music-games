@@ -132,7 +132,7 @@ Game = function() {
 	};
 
 	this.handleGuess = function(clickedElement) {
-		var guessTime = Date.now() - this.data.roundStartTime;
+		var guessTime = Date.now() - this.data.roundInfo.startTime;
 		this.data.audioPreview.pause();
 
 		var guessedSong = this.getSongGuess(clickedElement);
@@ -154,11 +154,11 @@ Game = function() {
 			// do something?
 		}
 
-		if (this.data.round <= this.data.maxRounds) {
-			this.data.roundStartTime = null;
+		if (this.data.roundInfo.number <= this.data.roundInfo.totalNumber) {
+			this.data.roundInfo.startTime = null;
 			this.ui.showBetweenRoundsScreen(this.data.round, this.data.score, guessedSong, correctSong);
 
-			if (this.data.round == this.data.maxRounds) {
+			if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
 				var continueButton = document.getElementById("continueButton");
 				continueButton.textContent = "Final score";
 			}
@@ -173,16 +173,17 @@ Game = function() {
 	};
 
 	this.startRound = function() {
-		if (this.data.round == this.data.maxRounds) {
+		if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
 			this.ui.showGameOverScreen(this.data.score);
 			return;
 		}
 
-		this.data.round += 1;
+		this.data.roundInfo.number += 1;
 		this.setupRound();
 		this.setSongToGuess();
 		this.ui.startHandler();
-		this.data.roundStartTime = Date.now();
+		this.data.roundInfo.startTime = Date.now();
+
 		// get next set of random songs
 		// choose song to play
 		// update ui/show all guesses
@@ -195,7 +196,7 @@ Game = function() {
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
 		this.ui.updateScore(this.data.score);
-		this.ui.updateRound(this.data.round);
+		this.ui.updateRound(this.data.roundInfo.number);
 	};
 
 	this.setSongToGuess = function() {
