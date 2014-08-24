@@ -37,7 +37,6 @@ UserInterface = function() {
 	};
 
 	this.updateRound = function(roundInfo) {
-		console.log(roundInfo);
 		var roundDisplay = document.getElementById("roundDisplay");
 		var roundText = "Round: " + roundInfo.number.toString();
 
@@ -48,20 +47,20 @@ UserInterface = function() {
 		roundDisplay.textContent = roundText;
 	};
 
-	this.showBetweenRoundsScreen = function(roundInfo, currentScore, guessedSong, correctSong) {
+	this.showBetweenRoundsScreen = function(roundInfo, currentScore) {//, guessedSong, correctSong) {
 		var container = document.getElementById("betweenRoundsContainer");
 		container.hidden = false;
 
 		var message = document.getElementById("betweenRoundsMessage");
 
-		if (guessedSong == correctSong) {
-			var congratsMessage = "Congratulations! " + guessedSong.name + " is right!";
+		if (roundInfo.correctGuess) {
+			var congratsMessage = "Congratulations! " + roundInfo.guessedSong.name + " is right!";
 			message.textContent = congratsMessage;
 			this.updateScore(currentScore);
 		}
 
 		else {
-			var wrongMessage = "Sorry, it was " + correctSong.name + ". You chose " + guessedSong.name  + ".";
+			var wrongMessage = "Sorry, it was " + roundInfo.correctSong.name + ". You chose " + roundInfo.guessedSong.name  + ".";
 			message.textContent = wrongMessage;
 			// add way to display the correct song
 		}

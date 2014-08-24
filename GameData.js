@@ -14,7 +14,16 @@ GameData = function() {
 	this.roundInfo = {
 		'number': 0,
 		'totalNumber': 5,
-		'startTime': null
+
+		'isActive': false,
+		'startTime': null,
+		'endTime': null,
+
+		'guessedSong': null,
+		'correctSong': null,
+		'correctGuess': null,
+
+		'score': 0
 	};
 
 	this.guessedSongs = [];
@@ -122,6 +131,35 @@ GameData = function() {
 		else {
 			console.log("Didn't set song options...");
 			return;
+		}
+	};
+
+	this.setRoundScore = function() {
+		if (this.roundInfo.correctGuess) {
+			var roundTime = this.roundInfo.endTime - this.roundInfo.startTime;
+			this.roundInfo.score = Math.round((30000 - roundTime)/100);
+		}
+
+		else {
+			this.roundInfo.score = 0;
+		}
+	};
+
+	this.updateGameTracking = function() {
+		if (this.roundInfo.isActive) {
+			this.guessedSongs.push(this.roundInfo.guessedSong);
+			this.correctSongs.push(this.roundInfo.correctSong);
+
+			this.roundInfo.correctGuess = this.roundInfo.correctSong == this.roundInfo.guessedSong;
+
+			this.setRoundScore();
+			this.score += this.roundInfo.score;
+
+			if (this.roundInfo.correctGuess) {
+				this.removeIdFromIdSet(this.roundInfo.correctSong.id);
+			}
+
+			this.roundInfo.isActive = false;
 		}
 	};
 };

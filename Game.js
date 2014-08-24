@@ -132,31 +132,16 @@ Game = function() {
 	};
 
 	this.handleGuess = function(clickedElement) {
-		var guessTime = Date.now() - this.data.roundInfo.startTime;
+		this.data.roundInfo.endTime = Date.now();
 		this.data.audioPreview.pause();
 
-		var guessedSong = this.getSongGuess(clickedElement);
-		var correctSong = getTrackFromSetByPreviewUrl(this.data.audioPreview.src, this.data.songOptions);
+		this.data.roundInfo.guessedSong = this.getSongGuess(clickedElement);
+		this.data.roundInfo.correctSong = getTrackFromSetByPreviewUrl(this.data.audioPreview.src, this.data.songOptions);
 
-		this.data.guessedSongs.push(guessedSong);
-		this.data.correctSongs.push(correctSong);
-
-		var guessIsCorrect = guessedSong == correctSong;
-
-		if (guessedSong == correctSong) {
-			var guessScore = Math.floor((30000 - guessTime)/100);
-			this.data.score += guessScore;
-
-			this.data.removeIdFromIdSet(guessedSong.id); // so the same song won't come up twice in a game
-		}
-
-		else {
-			// do something?
-		}
+		this.data.updateGameTracking();
 
 		if (this.data.roundInfo.number <= this.data.roundInfo.totalNumber) {
-			this.data.roundInfo.startTime = null;
-			this.ui.showBetweenRoundsScreen(this.data.roundInfo, this.data.score, guessedSong, correctSong);
+			this.ui.showBetweenRoundsScreen(this.data.roundInfo, this.data.score);//, guessedSong, correctSong);
 
 			if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
 				var continueButton = document.getElementById("continueButton");
@@ -179,6 +164,7 @@ Game = function() {
 		}
 
 		this.data.roundInfo.number += 1;
+		this.data.roundInfo.isActive = true;
 		this.setupRound();
 		this.setSongToGuess();
 		this.ui.startHandler();
