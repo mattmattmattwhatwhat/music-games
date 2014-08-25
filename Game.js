@@ -93,21 +93,7 @@ Game = function() {
 
 		this.data.updateGameTracking();
 
-		if (this.data.roundInfo.number <= this.data.roundInfo.totalNumber) {
-			this.ui.showBetweenRoundsScreen(this.data.roundInfo, this.data.score);//, guessedSong, correctSong);
-
-			if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
-				var continueButton = document.getElementById("continueButton");
-				continueButton.textContent = "Final score";
-			}
-
-			return;
-		}
-
-		else {
-			this.ui.showGameOverScreen(this.data.score);
-			// ui show final screen
-		}
+		this.ui.showBetweenRoundsScreen(this.data.roundInfo, this.data.score);
 	};
 
 	this.startRound = function() {
@@ -137,7 +123,6 @@ Game = function() {
 
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
-		//this.ui.updateRound(this.data.roundInfo);
 	};
 
 	this.setSongToGuess = function() {

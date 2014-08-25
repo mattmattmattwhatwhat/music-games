@@ -64,6 +64,11 @@ UserInterface = function() {
 			// add way to display the correct song
 		}
 
+		if (roundInfo.number == roundInfo.totalNumber) {
+			var continueButton = document.getElementById("continueButton");
+			continueButton.textContent = "Final score";
+		}
+
 		this.displayScreenOverlay();
 	};
 
