@@ -16,8 +16,6 @@ Game = function() {
 	};
 
 	this.startGame = function() {
-		this.setupRound();
-
 		var choiceSpans = document.getElementsByClassName("choiceOverlay");
 
 		for (var i = 0; i < choiceSpans.length; i++) {
@@ -45,51 +43,6 @@ Game = function() {
 
 		else if (clickedElementClassList.contains("clickableChoice")) {
 			this.handleGuess(clickedElement);
-		}
-	};
-
-	this.checkGuess = function(clickedElement) {
-		if (clickedElement.classList.contains("choiceOverlay")) {
-			var choiceSpan = clickedElement;
-		}
-
-		else {
-			var parent = clickedElement.parentElement;
-
-			while (!parent.classList.contains("choiceOverlay")) {
-				parent = parent.parentElement;
-			}
-
-			var choiceSpan = parent;
-		}
-
-		var choiceContainer = choiceSpan.firstElementChild;
-		var choiceImage = null;
-
-		for (var i = 0; i < choiceContainer.children.length; i++) {
-			if (choiceContainer.children[i].classList.contains("songInformationContainer")) {
-				var songInfo = choiceContainer.children[i];
-				break;
-			}
-		}
-
-		for (var i = 0; i < songInfo.children.length; i++) {
-			if (songInfo.children[i].classList.contains("choiceImage")) {
-				choiceImage = songInfo.children[i];
-				break;
-			}
-		}
-
-		console.log(choiceContainer);
-		var trackGuess = this.getTrackOptionFromImageUrl(choiceImage.src);
-
-		if (trackGuess.preview_url == this.data.audioPreview.src) {
-			this.data.removeIdFromIdSet(trackGuess.id);
-			return true;
-		}
-
-		else {
-			return false;
 		}
 	};
 
@@ -163,11 +116,13 @@ Game = function() {
 			return;
 		}
 
+		this.setMusicChoices();
+		this.setSongToGuess();
+
 		this.data.roundInfo.number += 1;
 		this.data.roundInfo.isActive = true;
-		this.setupRound();
-		this.setSongToGuess();
-		this.ui.startHandler();
+
+		this.ui.startHandler(this.data.roundInfo);
 		this.data.roundInfo.startTime = Date.now();
 
 		// get next set of random songs
@@ -177,12 +132,12 @@ Game = function() {
 		// set round start time
 	};
 
-	this.setupRound = function() {
+	this.setMusicChoices = function() {
 		this.data.setSongOptions();
+
 		this.ui.updateChoiceImages(this.data.songOptions);
 		this.ui.setSongInformation(this.data.songOptions);
-		this.ui.updateScore(this.data.score);
-		this.ui.updateRound(this.data.roundInfo);
+		//this.ui.updateRound(this.data.roundInfo);
 	};
 
 	this.setSongToGuess = function() {

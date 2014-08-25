@@ -9,8 +9,9 @@ UserInterface = function() {
 		this.fillChoiceContainer();
 	};
 
-	this.startHandler = function() {
+	this.startHandler = function(roundInfo) {
 		this.removeBlurEffect();
+		this.updateRound(roundInfo);
 
 		var screenOverlay = document.getElementById("screenOverlay");
 		screenOverlay.hidden = true;
@@ -18,8 +19,6 @@ UserInterface = function() {
 
 		var startContainer = document.getElementById("startContainer");
 		startContainer.hidden = true;
-
-
 	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
