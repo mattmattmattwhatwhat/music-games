@@ -6,7 +6,8 @@ Game = function() {
 		this.ui.initialize();
 
 		//this.data.loadSongGroup();
-		this.data.loadSongGroup(offspringSongs, 'spotifyIds');
+		//this.data.loadSongGroup(offspringSongs, 'spotifyIds');
+		this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
@@ -28,7 +29,7 @@ Game = function() {
 	};
 
 	this.handleEvent = function(e) {
-		console.log(e);
+		//console.log(e);
 		var clickedElement = e.target;
 		var clickedElementClassList = clickedElement.classList;
 		var clickedId = e.target.id;
@@ -115,7 +116,7 @@ Game = function() {
 		this.data.audioPreview.src = chosenSong.preview_url;
 		this.data.audioPreview.play();
 
-		console.log(this.data.songOptions[chosenSongIndex].name);
+		//console.log(this.data.songOptions[chosenSongIndex].name); //cheater
 	};
 
 	this.getTrackOptionFromImageUrl = function(url) {

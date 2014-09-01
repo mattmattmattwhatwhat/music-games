@@ -6,7 +6,7 @@
 #pageContainer {
 	height: 100vh;
 	z-index: 0;
-	background-color: rgb(255,255,255);
+	/*background-color: rgb(255,255,255);*/
 }
 
 #gameContainer {
@@ -17,7 +17,7 @@
 
 #choiceContainer {
 	margin: 0 auto;
-	padding-top: 1.5%;
+	/*padding-top: 1.5%;*/
 	height: 90vh;
 	width: 90%;
 	color: rgb(0,0,0);
@@ -109,3 +109,10 @@
 	height: 5vh;
 	text-align: center;
 }
+
+#gameFooter {
+	margin: 0;
+	height: 5vh;
+	background-color: black;
+}
+
