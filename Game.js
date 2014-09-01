@@ -5,7 +5,8 @@ Game = function() {
 	this.initialize = function() {
 		this.ui.initialize();
 
-		this.data.loadSongGroup();
+		//this.data.loadSongGroup();
+		this.data.loadSongGroup(offspringSongs, 'spotifyIds');
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
@@ -46,7 +47,7 @@ Game = function() {
 		}
 	};
 
-	this.getSongGuess = function(clickedElement) {
+	this.getGuessedTrack = function(clickedElement) {
 		if (clickedElement.classList.contains("choiceOverlay")) {
 			var choiceSpan = clickedElement;
 		}
@@ -61,34 +62,15 @@ Game = function() {
 			var choiceSpan = parent;
 		}
 
-		var choiceContainer = choiceSpan.firstElementChild;
-		var choiceImage = null;
-
-		for (var i = 0; i < choiceContainer.children.length; i++) {
-			if (choiceContainer.children[i].classList.contains("songInformationContainer")) {
-				var songInfo = choiceContainer.children[i];
-				break;
-			}
-		}
-
-		for (var i = 0; i < songInfo.children.length; i++) {
-			if (songInfo.children[i].classList.contains("choiceImage")) {
-				choiceImage = songInfo.children[i];
-				break;
-			}
-		}
-
-		var guessedTrack = this.getTrackOptionFromImageUrl(choiceImage.src);
-		console.log(guessedTrack.name);
-
-		return guessedTrack;
+		var track = getTrackFromSetById(choiceSpan.spotifyId, this.data.songOptions);
+		return track
 	};
 
 	this.handleGuess = function(clickedElement) {
 		this.data.roundInfo.endTime = Date.now();
 		this.data.audioPreview.pause();
 
-		this.data.roundInfo.guessedSong = this.getSongGuess(clickedElement);
+		this.data.roundInfo.guessedSong = this.getGuessedTrack(clickedElement);
 		this.data.roundInfo.correctSong = getTrackFromSetByPreviewUrl(this.data.audioPreview.src, this.data.songOptions);
 
 		this.data.updateGameTracking();

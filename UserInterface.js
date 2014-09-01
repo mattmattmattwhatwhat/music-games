@@ -104,6 +104,7 @@ UserInterface = function() {
 
 	this.setSongInformation = function(spotifyTracks) {
 		var infoElements = document.getElementsByClassName("songInformationContainer");
+		var choiceOverlays = document.getElementsByClassName("choiceOverlay");
 
 		if (infoElements.length != spotifyTracks.length) {
 			alert("Couldn't set song information");
@@ -111,6 +112,7 @@ UserInterface = function() {
 		}
 
 		for (var i = 0; i < infoElements.length; i++) {
+			choiceOverlays[i].spotifyId = spotifyTracks[i].id;
 			var artistPara = infoElements[i].getElementsByClassName("artistLabel")[0];
 			var titlePara = infoElements[i].getElementsByClassName("titleLabel")[0];
 
