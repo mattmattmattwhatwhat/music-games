@@ -30,7 +30,13 @@ UserInterface = function() {
 
 		var gameOverContainer = document.getElementById("gameOverContainer");
 		gameOverContainer.hidden = true;
-	}
+
+		var roundDisplay = document.getElementById("roundDisplay");
+		roundDisplay.textContent = "Ready?";
+
+		var scoreDisplay = document.getElementById("scoreDisplay");
+		scoreDisplay.textContent = "Score: 0";
+	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
 		var artUrls = getArtUrlsFromSongSet(spotifyTracks);
