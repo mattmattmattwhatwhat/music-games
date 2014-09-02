@@ -7,6 +7,7 @@ UserInterface = function() {
 		gameOverContainer.hidden = true;
 
 		this.fillChoiceContainer();
+		this.blurChoices();
 	};
 
 	this.startHandler = function(roundInfo) {
@@ -155,8 +156,19 @@ UserInterface = function() {
 		var screenOverlay = document.getElementById("screenOverlay");
 		screenOverlay.hidden = false;
 
-		var choiceContainer = document.getElementById("choiceContainer");
-		choiceContainer.classList.add("blurred");
+		this.blurChoices();
+	};
+
+	this.blurChoices = function() {
+		var songInfoContainers = document.getElementsByClassName("songInformationContainer");
+
+		for (var i = 0; i < songInfoContainers.length; i++) {
+			var infoElements = songInfoContainers[i].children;
+
+			for (var j = 0; j < infoElements.length; j++) {
+				infoElements[j].classList.add("blurred");
+			}
+		}
 	};
 
 	this.removeBlurEffect = function() {
