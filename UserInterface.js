@@ -21,6 +21,17 @@ UserInterface = function() {
 		startContainer.hidden = true;
 	};
 
+	this.resetHandler = function() {
+		var startContainer = document.getElementById("startContainer");
+		startContainer.hidden = false;
+
+		var betweenRounds = document.getElementById("betweenRoundsContainer");
+		betweenRounds.hidden = true;
+
+		var gameOverContainer = document.getElementById("gameOverContainer");
+		gameOverContainer.hidden = true;
+	}
+
 	this.updateChoiceImages = function(spotifyTracks) {
 		var artUrls = getArtUrlsFromSongSet(spotifyTracks);
 		var choiceImages = document.getElementsByClassName("choiceImage");

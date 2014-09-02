@@ -15,6 +15,9 @@ Game = function() {
 
 		var continueButton = document.getElementById("continueButton");
 		continueButton.addEventListener("click", this, false);
+
+		var resetButton = document.getElementById("resetButton");
+		resetButton.addEventListener("click", this, false);
 	};
 
 	this.startGame = function() {
@@ -41,6 +44,16 @@ Game = function() {
 
 		else if (clickedId == "continueButton") {
 			this.startRound();
+		}
+
+		else if (clickedId == "resetButton") {
+			this.data = null;
+			this.data = new GameData();
+
+			this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+			this.data.setSongOptions();
+
+			this.ui.resetHandler();
 		}
 
 		else if (clickedElementClassList.contains("clickableChoice")) {
