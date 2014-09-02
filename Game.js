@@ -94,6 +94,7 @@ Game = function() {
 
 	this.startRound = function() {
 		if (this.data.roundInfo.number == this.data.roundInfo.totalNumber) {
+			this.ui.setGameOverGuesses(this.data.guessedSongs, this.data.correctSongs);
 			this.ui.showGameOverScreen(this.data.score);
 			return;
 		}

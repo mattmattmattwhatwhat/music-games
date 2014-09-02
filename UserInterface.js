@@ -89,6 +89,55 @@ UserInterface = function() {
 		this.displayScreenOverlay();
 	};
 
+	this.setGameOverGuesses = function(guessedSongs, correctSongs) {
+		var guessesContainer = document.getElementById("guessesContainer");
+
+		while (guessesContainer.children.length > 0) {
+			guessesContainer.children[0].remove();
+		}
+
+		for (var i = 0; i < correctSongs.length; i++) {
+			// create row container
+			var newGuessRow = document.createElement("div");
+			newGuessRow.classList.add("guessRow");
+
+			// first column
+			var rowInfoContainer = document.createElement("div");
+			rowInfoContainer.classList.add("guessRowInfo");
+
+			var rowNumDisplay = document.createElement("span");
+			rowNumDisplay.textContent = (i + 1).toString();
+
+			rowInfoContainer.appendChild(rowNumDisplay);
+
+			// second column
+			var guessInfoContainer = document.createElement("div");
+			guessInfoContainer.classList.add("guessInfoContainer");
+
+			var trackNameDisplay = document.createElement("span");
+			trackNameDisplay.textContent = guessedSongs[i].name;
+
+			guessInfoContainer.appendChild(trackNameDisplay);
+
+			// third column
+			var correctSongContainer = document.createElement("div");
+			correctSongContainer.classList.add("correctSongContainer");
+
+			var trackNameDisplay = document.createElement("span");
+			trackNameDisplay.textContent = correctSongs[i].name;
+
+			correctSongContainer.appendChild(trackNameDisplay);
+
+			// add everything to the row
+			newGuessRow.appendChild(rowInfoContainer);
+			newGuessRow.appendChild(guessInfoContainer);
+			newGuessRow.appendChild(correctSongContainer);
+
+			// add row to guess container
+			guessesContainer.appendChild(newGuessRow);
+		}
+	};
+
 	this.showGameOverScreen = function(finalScore) {
 		var container = document.getElementById("betweenRoundsContainer");
 		container.hidden = true;
