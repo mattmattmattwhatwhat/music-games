@@ -7,7 +7,8 @@ Game = function() {
 
 		//this.data.loadSongGroup();
 		//this.data.loadSongGroup(offspringSongs, 'spotifyIds');
-		this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+		//this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+		this.data.loadSongGroup(taylorSongs, 'spotifyIds');
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
@@ -50,7 +51,8 @@ Game = function() {
 			this.data = null;
 			this.data = new GameData();
 
-			this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+			//this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+			this.data.loadSongGroup(taylorSongs, 'spotifyIds');
 			this.data.setSongOptions();
 
 			this.ui.resetHandler();
