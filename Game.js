@@ -147,5 +147,3 @@ Game = function() {
 		return null;
 	};
 };
-
-var x = null;
