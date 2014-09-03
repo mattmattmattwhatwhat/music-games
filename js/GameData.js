@@ -13,7 +13,7 @@ GameData = function() {
 
 	this.roundInfo = {
 		'number': 0,
-		'totalNumber': 5,
+		'totalNumber': 10,
 
 		'isActive': false,
 		'startTime': null,
