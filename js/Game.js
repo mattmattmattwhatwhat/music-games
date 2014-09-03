@@ -5,10 +5,27 @@ Game = function() {
 	this.initialize = function() {
 		this.ui.initialize();
 
+		var randValue = Math.random();
+
+		if (randValue <= .5) {
+			this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+		}
+
+		else if (randValue <= .8) {
+			this.data.loadSongGroup();
+		}
+
+		else if (randValue <= 0.95) {
+			this.data.loadSongGroup(taylorSongs, 'spotifyIds');
+		}
+
+		else {
+			this.data.loadSongGroup(offspringSongs, 'spotifyIds');
+		}
 		//this.data.loadSongGroup();
 		//this.data.loadSongGroup(offspringSongs, 'spotifyIds');
 		//this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
-		this.data.loadSongGroup(taylorSongs, 'spotifyIds');
+		//this.data.loadSongGroup(taylorSongs, 'spotifyIds');
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");
@@ -51,8 +68,23 @@ Game = function() {
 			this.data = null;
 			this.data = new GameData();
 
-			//this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
-			this.data.loadSongGroup(taylorSongs, 'spotifyIds');
+			var randValue = Math.random();
+
+			if (randValue <= .5) {
+				this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
+			}
+
+			else if (randValue <= .8) {
+				this.data.loadSongGroup();
+			}
+
+			else if (randValue <= 0.95) {
+				this.data.loadSongGroup(taylorSongs, 'spotifyIds');
+			}
+
+			else {
+				this.data.loadSongGroup(offspringSongs, 'spotifyIds');
+			}
 			this.data.setSongOptions();
 
 			this.ui.resetHandler();
