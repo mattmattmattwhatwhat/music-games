@@ -1,6 +1,7 @@
 * {
 	margin: 0px;
 	font-family: Arial;
+	font-variant: small-caps;
 }
 
 #pageContainer {
@@ -118,7 +119,41 @@
 	color: rgb(255, 255, 255);
 }
 
-.guessRow div {
-	display: inline;
+#guessesContainer {
+	display: block;
+	overflow: auto;
 }
 
+.guessListRow {
+	list-style: none;
+}
+
+.guessEvenRow {
+	background-color: rgb(20, 20, 20);
+}
+
+.guessOddRow {
+	background-color: rgb(40, 40, 40);
+}
+
+.guessListContainer {
+	width: 50%;
+	overflow: auto;
+	margin: 0 auto;
+}
+
+.guessListEntry {
+	float: left;
+	list-style: none;
+	width: 30%;
+	text-align: left;
+}
+
+.guessListHeaderEntry {
+	text-align: center;
+	font-size: 110%;
+}
+
+.wrongGuess {
+	color: rgb(255, 0, 0);
+}

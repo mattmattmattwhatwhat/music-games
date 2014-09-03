@@ -97,46 +97,79 @@ UserInterface = function() {
 			guessesContainer.children[0].remove();
 		}
 
+		var guessList = document.createElement("ul");
+		guessList.id = "guessList";
+
+		var headerRow = document.createElement("li");
+		headerRow.classList.add("guessListRow");
+
+		var headerEntryContainer = document.createElement("ul");
+		headerEntryContainer.classList.add("guessListContainer");
+		headerEntryContainer.classList.add("guessOddRow");
+
+		var headerFirstCol = document.createElement("li");
+		var headerSecondCol = document.createElement("li");
+		var headerThirdCol = document.createElement("li");
+
+		headerFirstCol.textContent = "Round";
+		headerSecondCol.textContent = "Your Guess";
+		headerThirdCol.textContent = "Right Song";
+
+		headerFirstCol.classList.add("guessListEntry");
+		headerSecondCol.classList.add("guessListEntry");
+		headerThirdCol.classList.add("guessListEntry");
+
+		headerFirstCol.classList.add("guessListHeaderEntry");
+		headerSecondCol.classList.add("guessListHeaderEntry");
+		headerThirdCol.classList.add("guessListHeaderEntry");
+
+		headerEntryContainer.appendChild(headerFirstCol);
+		headerEntryContainer.appendChild(headerSecondCol);
+		headerEntryContainer.appendChild(headerThirdCol);
+
+		headerRow.appendChild(headerEntryContainer);
+		guessList.appendChild(headerRow);
+
 		for (var i = 0; i < correctSongs.length; i++) {
-			// create row container
-			var newGuessRow = document.createElement("div");
-			newGuessRow.classList.add("guessRow");
+			var guessRow = document.createElement("li");
+			guessRow.classList.add("guessListRow");
 
-			// first column
-			var rowInfoContainer = document.createElement("div");
-			rowInfoContainer.classList.add("guessRowInfo");
+			var guessRowEntryContainer = document.createElement("ul");
+			guessRowEntryContainer.classList.add("guessListContainer");
 
-			var rowNumDisplay = document.createElement("span");
-			rowNumDisplay.textContent = (i + 1).toString();
+			if (i % 2 == 0) {
+				guessRowEntryContainer.classList.add("guessEvenRow");
+			}
 
-			rowInfoContainer.appendChild(rowNumDisplay);
+			else {
+				guessRowEntryContainer.classList.add("guessOddRow");
+			}
 
-			// second column
-			var guessInfoContainer = document.createElement("div");
-			guessInfoContainer.classList.add("guessInfoContainer");
+			var guessFirstCol = document.createElement("li");
+			var guessSecondCol = document.createElement("li");
+			var guessThirdCol = document.createElement("li");
 
-			var trackNameDisplay = document.createElement("span");
-			trackNameDisplay.textContent = guessedSongs[i].name;
+			guessFirstCol.classList.add("guessListEntry");
+			guessSecondCol.classList.add("guessListEntry");
+			guessThirdCol.classList.add("guessListEntry");
 
-			guessInfoContainer.appendChild(trackNameDisplay);
+			guessFirstCol.textContent = "Round " + (i + 1).toString();
+			guessSecondCol.textContent = guessedSongs[i].name;
+			guessThirdCol.textContent = correctSongs[i].name;
 
-			// third column
-			var correctSongContainer = document.createElement("div");
-			correctSongContainer.classList.add("correctSongContainer");
+			if (guessedSongs[i].name != correctSongs[i].name) {
+				guessSecondCol.classList.add("wrongGuess");
+			}
 
-			var trackNameDisplay = document.createElement("span");
-			trackNameDisplay.textContent = correctSongs[i].name;
+			guessRowEntryContainer.appendChild(guessFirstCol);
+			guessRowEntryContainer.appendChild(guessSecondCol);
+			guessRowEntryContainer.appendChild(guessThirdCol);
 
-			correctSongContainer.appendChild(trackNameDisplay);
-
-			// add everything to the row
-			newGuessRow.appendChild(rowInfoContainer);
-			newGuessRow.appendChild(guessInfoContainer);
-			newGuessRow.appendChild(correctSongContainer);
-
-			// add row to guess container
-			guessesContainer.appendChild(newGuessRow);
+			guessRow.appendChild(guessRowEntryContainer);
+			guessList.appendChild(guessRow);
 		}
+
+		guessesContainer.appendChild(guessList);
 	};
 
 	this.showGameOverScreen = function(finalScore) {
