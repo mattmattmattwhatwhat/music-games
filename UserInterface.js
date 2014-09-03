@@ -37,6 +37,9 @@ UserInterface = function() {
 
 		var scoreDisplay = document.getElementById("scoreDisplay");
 		scoreDisplay.textContent = "Score: 0";
+
+		var continueButton = document.getElementById("continueButton");
+		continueButton.textContent = "Next round";
 	};
 
 	this.updateChoiceImages = function(spotifyTracks) {
