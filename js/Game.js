@@ -2,30 +2,19 @@ Game = function() {
 	this.data = new GameData();
 	this.ui = new UserInterface();
 	
+	this.setSongGroup = function(songGroup, songGroupType) {
+		if (this.data.songGroupSet) {
+			console.log("Resetting song group");
+		}
+
+		this.data.songGroup = songGroup;
+		this.data.songGroupType = songGroupType;
+		this.data.songGroupSet = true;
+	};
+
 	this.initialize = function() {
 		this.ui.initialize();
 
-		var randValue = Math.random();
-
-		if (randValue <= .5) {
-			this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
-		}
-
-		else if (randValue <= .8) {
-			this.data.loadSongGroup();
-		}
-
-		else if (randValue <= 0.95) {
-			this.data.loadSongGroup(taylorSongs, 'spotifyIds');
-		}
-
-		else {
-			this.data.loadSongGroup(offspringSongs, 'spotifyIds');
-		}
-		//this.data.loadSongGroup();
-		//this.data.loadSongGroup(offspringSongs, 'spotifyIds');
-		//this.data.loadSongGroup(currentTopHundred, 'spotifyIds');
-		//this.data.loadSongGroup(taylorSongs, 'spotifyIds');
 		this.data.setSongOptions();
 
 		var startButton = document.getElementById("startButton");

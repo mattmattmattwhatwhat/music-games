@@ -2,7 +2,9 @@ GameData = function() {
 	this.songSet = null; // an array of spotify track objects
 	this.idSet = null;
 
+	this.songGroup = null;
 	this.songGroupType = null;
+	this.songGroupSet = false;
 
 	this.optionCount = 9;
 	this.songOptions = null;
@@ -68,23 +70,23 @@ GameData = function() {
 		var removedSong = this.songSet.splice(songIndex, 1);
 	};
 
-	this.removeIdFromIdSet = function(spotifyId) {
-		var idIndex = this.idSet.indexOf(spotifyId);
+	this.removeIdFromSongGroup = function(spotifyId) {
+		var idIndex = this.songGroup.indexOf(spotifyId);
 
 		if (idIndex == -1) {
-			console.log("Didn't remove id from GameData.idSet");
+			console.log("Didn't remove id from GameData.songGroup");
 			return;
 		}
 
-		var removedId = this.idSet.splice(idIndex, 1);
+		var removedId = this.songGroup.splice(idIndex, 1);
 	}
 
 	this.loadAllSpotifyData = function() {
 		this.songSet = [];
 
-		if (this.idSet != null) {
-			for (var i = 0; i < this.idSet.length; i++) {
-				var song = getTrackBySpotifyId(this.idSet[i]);
+		if (this.songGroup != null) {
+			for (var i = 0; i < this.songGroup.length; i++) {
+				var song = getTrackBySpotifyId(this.songGroup[i]);
 				this.songSet.push(song);
 			}
 		}
@@ -101,9 +103,9 @@ GameData = function() {
 		}
 
 		if (this.songGroupType == 'spotifyIds') {
-			if (this.idSet === null || this.idSet.length < this.optionCount) {
+			if (this.songGroup === null || this.songGroup.length < this.optionCount) {
 				alert("Couldn't set song options");
-				console.log("GameData.idSet issue:", this.idSet);
+				console.log("GameData.songGroup issue:", this.songGroup);
 				return;
 			}
 
@@ -111,13 +113,17 @@ GameData = function() {
 			this.songOptions = [];
 
 			for (var i = 0; i < this.optionCount; i++) {
-				var randIndex = Math.floor(Math.random() * this.idSet.length);
-				var randomId = this.idSet[randIndex];
+				// var randIndex = Math.floor(Math.random() * this.idSet.length);
+				// var randomId = this.idSet[randIndex];
+				var randIndex = Math.floor(Math.random() * this.songGroup.length);
+				var randomId = this.songGroup[randIndex];
 				var randomSong = getTrackBySpotifyId(randomId);
 
 				while (chosenIds.indexOf(randomId) != -1 || !trackHasAlbumArt(randomSong)) {
-					var newRandIndex = Math.floor(Math.random() * this.idSet.length);
-					randomId = this.idSet[newRandIndex];
+					// var newRandIndex = Math.floor(Math.random() * this.idSet.length);
+					// randomId = this.idSet[newRandIndex];
+					var newRandIndex = Math.floor(Math.random() * this.songGroup.length);
+					randomId = this.songGroup[newRandIndex];
 					randomSong = getTrackBySpotifyId(randomId);
 				}
 
@@ -156,7 +162,7 @@ GameData = function() {
 			this.score += this.roundInfo.score;
 
 			if (this.roundInfo.correctGuess) {
-				this.removeIdFromIdSet(this.roundInfo.correctSong.id);
+				this.removeIdFromSongGroup(this.roundInfo.correctSong.id);
 			}
 
 			this.roundInfo.isActive = false;

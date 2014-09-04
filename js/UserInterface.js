@@ -1,5 +1,7 @@
 UserInterface = function() {
 	this.initialize = function() {
+		document.getElementById("screenOverlay").hidden = false;
+
 		var betweenRounds = document.getElementById("betweenRoundsContainer");
 		betweenRounds.hidden = true;
 

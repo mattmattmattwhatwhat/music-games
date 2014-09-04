@@ -13,6 +13,18 @@
 <body>
 	<div id="pageContainer">
 		<div id="gameContainer">
+			<div id="startScreen" class="menuScreen">
+				<h1>music games</h1>
+				<button id="quickStartButton" class="mainMenuButton">Quick start</button>
+				<button id="chooseSongSetButton" class="mainMenuButton">Choose songs</button>
+				<button id="aboutButton" class="mainMenuButton">About</button>
+			</div>
+			<div id="songSetSelectionScreen" class="menuScreen">
+				<button id="top1976" class="songSetSelectButton">1976 Top 100</button>
+				<button id="top100today" class="songSetSelectButton">Spotify Top 100</button>
+				<button id="taylor" class="songSetSelectButton">Taylor Swift</button>
+				<button id="offspring" class="songSetSelectButton">The Offspring</button>
+			</div>
 			<div id="gameHeader">
 				<span id="roundDisplay">Ready?</span>
 				<span id="scoreDisplay">Score: 0</span>
@@ -180,6 +192,8 @@
 		}
 
 		function updateImageSources(imageElements, imageSrcs) {
+			console.log(imageElements);
+			console.log(imageSrcs);
 			if (imageElements.length != imageSrcs.length) {
 				alert("Couldn't update images");
 				return;
@@ -249,9 +263,90 @@
 
 		// Testing -------------------
 
-		var game = new Game();
-		game.initialize();
+		App = function() {
+			this.game = null;
 
+			this.idSets = [spotifyIds, currentTopHundred, taylorSongs, offspringSongs];
+			this.chosenSet = null;
+
+			this.initialize = function() {
+				if (this.game == null) {
+					this.game = new Game();
+				}
+
+				document.getElementById("screenOverlay").hidden = true;
+
+				var handleClickElements = [];
+				handleClickElements.push(document.getElementById("quickStartButton"));
+				handleClickElements.push(document.getElementById("chooseSongSetButton"));
+				handleClickElements.push(document.getElementById("aboutButton"));
+
+				var songSetButtons = document.getElementsByClassName("songSetSelectButton");
+
+				for (var i = 0; i < songSetButtons.length; i++) {
+					handleClickElements.push(songSetButtons[i]);
+				}
+
+				for (var i = 0; i < handleClickElements.length; i++) {
+					handleClickElements[i].addEventListener("click", this, false);
+				}
+			};
+
+			this.startGame = function() {
+				if (this.chosenSet == null) {
+					this.chosenSet = this.idSets[Math.floor(Math.random() * this.idSets.length)];
+				}
+
+				this.game.setSongGroup(this.chosenSet, "spotifyIds");
+				this.game.initialize();
+
+				var menus = document.getElementsByClassName("menuScreen");
+
+				for (var i = 0; i < menus.length; i++) {
+					menus[i].hidden = true;
+				}
+			};
+
+			this.handleEvent = function(e) {
+				console.log(e);
+				if (e.target.id == "quickStartButton") {
+					this.startGame();
+					document.getElementById("startScreen").hidden = true;
+				}
+
+				else if (e.target.id == "chooseSongSetButton") {
+					document.getElementById("startScreen").hidden = true;
+					document.getElementById("songSetSelectionScreen").hidden = false;
+				}
+
+				else if (e.target.classList.contains("songSetSelectButton")) {
+					switch (e.target.id) {
+						case 'top1976':
+							this.chosenSet = this.idSets[0];
+							break;
+
+						case 'top100today':
+							this.chosenSet = this.idSets[1];
+							break;
+
+						case 'taylor':
+							this.chosenSet = this.idSets[2];
+							break;
+
+						case 'offspring':
+							this.chosenSet = this.idSets[3];
+							break;
+					}
+
+					this.startGame();
+				}
+			};
+		};
+
+		document.getElementById("songSetSelectionScreen").hidden = true;
+
+		var app = new App();
+		app.initialize();
 
 	</script>
 
