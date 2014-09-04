@@ -37,17 +37,17 @@ GameData = function() {
 
 		switch (songListType) {
 			case 'spotifyIds':
-				this.idSet = listOfSongs;
+				this.songGroup = listOfSongs;
 				this.songGroupType = 'spotifyIds';
 				break;
 
 			case 'spotifyTracks':
-				this.songSet = listOfSongs;
+				this.songGroup = listOfSongs;
 				this.songGroupType = 'spotifyTracks';
 				break;
 
 			default:
-				this.idSet = spotifyIds;
+				this.songGroup = spotifyIds;
 				this.songGroupType = 'spotifyIds';
 				console.log("Loaded default track list");
 				break;
