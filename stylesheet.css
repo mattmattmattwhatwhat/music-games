@@ -6,10 +6,18 @@
 
 body {
 	background-color: rgb(240, 240, 240);
+	min-height: 600px;
+	min-width: 800px;
+}
+
+a {
+	text-decoration: underline;
+	color: inherit;
 }
 
 #pageContainer {
 	height: 100vh;
+	min-height: 600px;
 	z-index: 0;
 }
 
@@ -180,20 +188,66 @@ body {
 .mainMenuButton {
 	display: block;
 	margin: 0 auto;
-	margin-top: 1%;
 	width: 30%;
-	height: 10%;
-	/*height: 60%;
-    width: 20%;*/
+	height: 20%;
     font-size: 150%;
     background-color: rgb(250, 250, 250);
     color: rgb(0, 0, 0);
     padding: 0px;
 }
 
-#startScreen h1 {
-	font-size: 500%;
-	margin-top: 3%;
-	margin-bottom: 7%;
+#startScreen {
+	min-height: 600px;
+	min-width: 800px;
 }
+
+#startScreenHeader {
+	height: 20vh;
+	padding-top: 10vh;
+	position: relative;
+	/*overflow: hidden;*/
+}
+
+#startScreenHeader h1 {
+	position: relative;
+	/*margin-top: 8%;*/
+	font-size: 300%;
+	font-variant: normal;
+}
+
+#startScreenButtonContainer {
+	height: 60vh;
+	overflow: hidden;
+}
+
+#quickStartButton {
+	margin-top: 5%;
+}
+
+#startScreenBlurb {
+	height: 10vh;
+	overflow: hidden;
+	font-variant: normal;
+}
+
+#startScreenBlurb p {
+	font-variant: normal;
+}
+
+#songSetSelectionScreen h2 {
+	margin-top: 5%;
+	margin-bottom: 10%;
+}
+
+.songSetSelectButton {
+	display: block;
+	margin: 0 auto;
+	width: 30%;
+	height: 10%;
+    font-size: 150%;
+    background-color: rgb(250, 250, 250);
+    color: rgb(0, 0, 0);
+    padding: 0px;
+}
+
 

@@ -14,12 +14,21 @@
 	<div id="pageContainer">
 		<div id="gameContainer">
 			<div id="startScreen" class="menuScreen">
-				<h1>music games</h1>
-				<button id="quickStartButton" class="mainMenuButton">Quick start</button>
-				<button id="chooseSongSetButton" class="mainMenuButton">Choose songs</button>
-				<button id="aboutButton" class="mainMenuButton">About</button>
+				<div id="startScreenHeader">
+					<h1>name that tune</h1>
+				</div>
+				<div id="startScreenButtonContainer">
+					<button id="quickStartButton" class="mainMenuButton">Quick start</button>
+					<button id="chooseSongSetButton" class="mainMenuButton">Choose songs</button>
+					<button id="aboutButton" class="mainMenuButton">About</button>
+				</div>
+				<div id="startScreenBlurb">
+					<p>Hit quick start to play with a random set of songs, or choose what you're in the mood for.</p>
+					<p>All album art and soundclips are from <a href="http://spotify.com">Spotify</a>.</p>
+				</div>
 			</div>
 			<div id="songSetSelectionScreen" class="menuScreen">
+				<h2>Choose set of songs to guess from</h2>
 				<button id="top1976" class="songSetSelectButton">1976 Top 100</button>
 				<button id="top100today" class="songSetSelectButton">Spotify Top 100</button>
 				<button id="taylor" class="songSetSelectButton">Taylor Swift</button>
